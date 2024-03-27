@@ -9,7 +9,7 @@ export const metadata = {
 async function getData() {
   await db();
   const pubs = await Pubs.find({});
-  if(pubs.length == 0) Response.status(404);
+  if(pubs.length == 0) return [];
 
   return pubs;
 }
