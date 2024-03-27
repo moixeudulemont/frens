@@ -1,6 +1,7 @@
 import "./globals.css";
 import Provider from './Provider';
 import { Quicksand } from 'next/font/google';
+import Navbar from '@/components/Navbar';
 
 export const metadata = {
   title: "frens",
@@ -15,6 +16,9 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body style={quicksand.style}>
         <Provider>
+        <header>
+          <Navbar/>
+        </header>
           {children}
         </Provider>
       </body>
