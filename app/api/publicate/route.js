@@ -3,13 +3,10 @@ import {v2 as cloudinary} from 'cloudinary';
 import { db } from '@/lib/db';
 import Pubs from '@/lib/models/pubs';
 import { getServerSession } from 'next-auth';
-import {authOptions} from '@/app/api/auth/[...nextauth]/route';
-
-
 
 export const POST = async (req) => {
     //GET SESSION
-    const { user } = await getServerSession(authOptions);
+    const { user } = await getServerSession();
     if(!user) NextResponse.status(401);
     cloudinary.config({ 
         cloud_name: 'andy-company', 
