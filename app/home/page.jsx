@@ -16,7 +16,6 @@ async function getData() {
 
 export default async function Home() { 
   const pubs = await getData();
-  console.log(pubs);
   return (
         <main className='md:px-10 p-5'>
             <h1 className='md:text-5xl text-3xl font-bold text-center'>Publicaciones</h1>
