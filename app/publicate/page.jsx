@@ -1,6 +1,6 @@
 "use client";
 
-import { FaImage } from "react-icons/fa6";
+import { FaImage, FaSpinner } from "react-icons/fa6";
 import { useState } from "react";
 
 
@@ -26,6 +26,7 @@ export default function Publicate() {
       alert('Rellene todos los campos');
       return;
     }
+    setLoader(true);
     const form = new FormData();
     form.append('title', title.trim());
     form.append('description', description.trim());
@@ -35,13 +36,14 @@ export default function Publicate() {
       body: form
     });
     const response = await res.json();
-    console.log(response);
+    if(response.msg == 'OK') location.href = '/home';
   }
   
   const [imgSrc, setImgSrc] = useState(null);
   const [file, setFile] = useState(null);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [loader, setLoader] = useState(false);
 
   return (
     <main className="md:px-10 px-5 py-5 h-[calc(100dvh-64px-1.25rem)]">
@@ -94,7 +96,13 @@ export default function Publicate() {
             onChange={e => setDescription(e.target.value)}
           ></textarea>
           <button className="px-4 py-2 bg-orange-400 font-bold w-full">
-            Publicar
+            {
+              loader ? (
+                <FaSpinner className="animate-spin" color={'white'}/>
+              ) : (
+                <span>Publicar</span>
+              )
+            }
           </button>
         </form>
       </section>
