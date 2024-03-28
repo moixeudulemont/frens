@@ -1,10 +1,9 @@
 'use client';
 import { useState, useEffect } from 'react';
 import Pub from '@/components/Pub';
-export const dynamic = 'force-dynamic';
 
 async function getPubs() {
-    const res = await fetch('/api/getPubs', {cache: 'no-store'});
+    const res = await fetch('/api/getPubs', {next: {revalidate: 60}});
     if(!res.ok) return [];
     const response = await res.json();
     

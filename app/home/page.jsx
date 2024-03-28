@@ -1,4 +1,6 @@
 import PubsBX from '@/components/PubsBX';
+export const dynamic = 'force-dynamic';
+export const revalidate = 60;
 
 export const metadata = {
   title: "frens - home",
