@@ -1,7 +1,6 @@
 import { db } from '@/lib/db';
 import Pubs from '@/lib/models/pubs';
 import { NextResponse } from 'next/server';
-export const fetchCache = 'force-no-store';
 
 export async function GET() {
     await db();
