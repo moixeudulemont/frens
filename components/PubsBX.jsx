@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import Pub from '@/components/Pub';
 
 async function getPubs() {
-    const res = await fetch('/api/getPubs');
+    const res = await fetch('/api/getPubs', {cache: 'no-store'});
     if(!res.ok) return [];
     const response = await res.json();
     
