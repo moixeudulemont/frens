@@ -1,17 +1,23 @@
+"use client";
+
 import Image from "next/image";
 import moment from "moment";
 import "moment/locale/es";
 import {
   FaEllipsis,
   FaRegThumbsUp,
-  FaRegThumbsDown,
   FaRegStar,
   FaRegComment,
+  FaPaperPlane
 } from "react-icons/fa6";
+import { useSession } from "next-auth/react";
+import { useState } from 'react';
 
 moment.locale("es");
 
 export default function Pub({ data }) {
+  const { status } = useSession();
+  const [comment, setComment] = useState(false);
   return (
     <article className="flex justify-center flex-col w-full bg-[rgba(255,255,255,0.1)] backdrop-blur-md shadow-lg rounded-lg">
       <div className="flex items-center justify-between py-2 px-4">
@@ -26,7 +32,9 @@ export default function Pub({ data }) {
             />
           </div>
           <div className="flex flex-col">
-            <p className="md:text-xl text-md font-bold drop-shadow">{data.author}</p>
+            <p className="md:text-xl text-md font-bold drop-shadow">
+              {data.author}
+            </p>
             <p className="text-sm md:text-md">{moment(data.date).fromNow()}</p>
           </div>
         </div>
@@ -54,14 +62,6 @@ export default function Pub({ data }) {
           <p className="font-bold">0</p>
         </div>
         <div className="flex gap-3">
-          <FaRegThumbsDown
-            color="white"
-            size={20}
-            className="cursor-pointer hover:animate-pulse"
-          />
-          <p className="font-bold">0</p>
-        </div>
-        <div className="flex gap-3">
           <FaRegStar
             color="white"
             size={20}
@@ -71,6 +71,7 @@ export default function Pub({ data }) {
         </div>
         <div className="flex gap-3">
           <FaRegComment
+            onClick={() => setComment(!comment)}
             color="white"
             size={20}
             className="cursor-pointer hover:animate-pulse"
@@ -78,6 +79,23 @@ export default function Pub({ data }) {
           <p className="font-bold">0</p>
         </div>
       </div>
+      {
+        comment && (
+          <form className="pb-4 px-6 flex items-center justify-center gap-5">
+        <input 
+          className="px-4 py-2 w-full rounded-lg"
+          type="text" placeholder="Escribi un comentario..."
+          maxLength="200"
+          minLength="1"
+        />
+        <FaPaperPlane
+          color="white"
+          size={20}
+          className="cursor-pointer hover:animate-pulse"
+        />
+      </form>
+        )
+      }
     </article>
   );
 }

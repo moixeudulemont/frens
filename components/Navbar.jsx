@@ -36,7 +36,7 @@ export default function Navbar() {
             />
             <div
               style={{ display: dropdown ? "block" : "none" }}
-              className="absolute top-[120%] right-0 p-3 bg-slate-100 w-[250px] rounded"
+              className="absolute top-[120%] right-0 p-3 bg-slate-100 w-[250px] rounded z-10"
             >
               <ul className="flex flex-col gap-2">
                 <li 
