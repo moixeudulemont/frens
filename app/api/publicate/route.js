@@ -41,7 +41,7 @@ export const POST = async (req) => {
         //SAVE PUB TO DB
         await db();
         const status = await Pubs.create({
-            author: user.email,
+            author: user.name,
             avatar: user.image,
             title: data.get('title').trim(),
             description: data.get('description').trim(),
