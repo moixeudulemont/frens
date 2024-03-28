@@ -1,9 +1,10 @@
 'use client';
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Pub from '@/components/Pub';
 
 async function getPubs() {
-    const res = await fetch('/api/getPubs', {cache: 'no-store'});
+    const res = await fetch('/api/getPubs');
     if(!res.ok) return [];
     const response = await res.json();
     
@@ -13,8 +14,10 @@ async function getPubs() {
 
 export default function PubsBX() {
     const [pubs, setPubs] = useState([]);
+    const router = useRouter();
     
     useEffect(() => {
+        router.refresh();
         getPubs().then(x => setPubs(x)).catch(err => console.log(err));    
     }, []);
 
