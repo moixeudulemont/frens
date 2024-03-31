@@ -1,6 +1,5 @@
 "use client";
 
-import { Suspense } from 'react';
 import Image from "next/image";
 import moment from "moment";
 import "moment/locale/es";
@@ -15,7 +14,7 @@ import {
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import YtPlayer from '@/components/YtPlayer';
+import YtPlayer from "@/components/YtPlayer";
 
 moment.locale("es");
 
@@ -46,10 +45,10 @@ export default function Pub({ data }) {
   }
 
   return (
-    <Suspense fallback={<h1>Cargando...</h1>}>
-      <article
-      className="flex justify-center flex-col w-full backdrop-blur-md shadow-lg rounded-lg">
-      <div className="flex items-center justify-between py-2 pl-2 pr-4">
+    <article className="flex justify-center flex-col w-full backdrop-blur-md shadow-lg rounded-lg"
+      style={{background: 'linear-gradient(-45deg, rgba(10,200,200,0.4), rgba(200,10,200,.4))'}}
+    >
+      <div className="flex items-center justify-between py-2 pl-2 pr-4 ">
         <div className="flex gap-3 items-center">
           <div className="md:w-[50px] md:h-[50px] w-[35px] h-[35px]">
             <Image
@@ -74,9 +73,13 @@ export default function Pub({ data }) {
         />
       </div>
       <div id="body">
-        <div id="contentTxt" className="p-2">
-          <h2 className="font-bold text-2xl">{data.title}</h2>
-          <p>{data.description}</p>
+        <div id="contentTxt" className="py-4 px-2">
+          <h2 className="font-bold md:text-2xl text-xl p-2 border-l-[6px] border-solid border-cyan-100 rounded-lg bg-[rgba(10,200,200,0.05)]">{data.title}</h2>
+          {data?.description && (
+            <p 
+            style={{background: 'linear-gradient(45deg, rgba(200,176,20,0.4), rgba(200,10,200,.4))'}}
+            className="p-4 mt-4 rounded-lg bg-[rgba(0,255,34,0.1)]">{data.description}</p>
+          )}
         </div>
         {data?.image && (
           <div className="w-full">
@@ -85,18 +88,20 @@ export default function Pub({ data }) {
               src={data.image}
               width={500}
               height={500}
-              className="w-full h-auto"
+              className="w-full h-auto max-h-[90vh]"
             />
           </div>
         )}
-        {data?.yt && (
-          <YtPlayer link={data.yt}/>
-        )}
+        {data?.yt && <YtPlayer link={data.yt} />}
         {data?.audio && (
-          <audio src={data.audio} controls className="w-11/12 mx-auto my-2"></audio>
+          <audio
+            src={data.audio}
+            controls
+            className="w-11/12 mx-auto mb-4"
+          ></audio>
         )}
       </div>
-      <div className="flex items-center justify-around py-3">
+      <div className="flex items-center justify-around py-3 bg-[rgba(109,255,187,0.1)] rounded-b-lg">
         <div className="flex gap-3">
           <FaRegThumbsUp
             color="white"
@@ -185,6 +190,5 @@ export default function Pub({ data }) {
         </>
       )}
     </article>
-    </Suspense>
   );
 }

@@ -17,9 +17,8 @@ export default async function Home() {
   const pubs = await getData();
 
   return (
-        <main className='md:px-10 pt-5'>
-            <h1 className='lg:text-5xl text-3xl font-bold text-center'>Publicaciones</h1>
-            <section className="mx-auto my-5 flex flex-col gap-5 w-full lg:w-6/12 justify-center items-center">
+        <main className='md:px-10'>
+            <section className="mx-auto my-5 flex flex-col gap-5 w-full lg:w-5/12 justify-center items-center">
               {
                 pubs.map((elem, key) => (
                   <Pub data={JSON.stringify(elem)} key={key} />
