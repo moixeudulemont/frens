@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 
 export async function GET() {
     await db();
-    const pubs = await Pubs.find({});
+    const pubs = await Pubs.find({}).sort({date:-1});
     if(pubs.length == 0) return NextResponse.json({msg: 'EMPTY'});
     return NextResponse.json(pubs);
 }
