@@ -124,7 +124,7 @@ export default function Publicate() {
           )}
           <input
             required
-            maxLength="25"
+            maxLength="50"
             minLength="1"
             className="bg-[rgba(255,255,255,0.6)] rounded-lg shadow w-full px-4 py-2 text-slate-950 focus:outline-none"
             type="text"
@@ -150,7 +150,7 @@ export default function Publicate() {
           {type !== "video" && (
             <textarea
               required={type == 'text' ? true : false}
-              maxLength="200"
+              maxLength="250"
               minLength="1"
               className="bg-[rgba(255,255,255,0.6)] rounded-lg shadow w-full px-4 py-2 text-slate-950 resize-none focus:outline-none"
               rows="2"

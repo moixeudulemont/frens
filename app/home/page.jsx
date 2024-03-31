@@ -18,6 +18,7 @@ export default async function Home() {
 
   return (
         <main className='md:px-10'>
+          
             <section className="mx-auto my-5 flex flex-col gap-5 w-full lg:w-5/12 justify-center items-center">
               {
                 pubs.map((elem, key) => (

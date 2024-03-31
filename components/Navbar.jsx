@@ -2,7 +2,7 @@
 
 import { Lobster } from "next/font/google";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { signIn, useSession, signOut } from "next-auth/react";
 import Image from "next/image";
 import { useState } from "react";
@@ -14,14 +14,14 @@ const lobster = Lobster({ subsets: ["latin"], weight: ["400"] });
 export default function Navbar() {
   const { data: session, status } = useSession();
   const [dropdown, setDropdown] = useState(false);
+  const params = usePathname();
   const router = useRouter();
-
   return (
     <nav className="h-[80px] flex items-center md:px-10 px-7 justify-between">
       <Link href="/" className={lobster.className}>
         <h1 className="text-2xl font-bold">frens</h1>
       </Link>
-      <Searcher />
+      {params === '/home' && (<Searcher />)}
       {status === "authenticated" ? (
         <ul className="flex justify-center items-center gap-5">
           <li className="relative flex items-center gap-4">

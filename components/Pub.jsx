@@ -45,8 +45,12 @@ export default function Pub({ data }) {
   }
 
   return (
-    <article className="flex justify-center flex-col w-full backdrop-blur-md shadow-lg rounded-lg"
-      style={{background: 'linear-gradient(-45deg, rgba(10,200,200,0.4), rgba(200,10,200,.4))'}}
+    <article
+      className="flex justify-center flex-col w-full backdrop-blur-md shadow-lg rounded-lg"
+      style={{
+        background:
+          "linear-gradient(-45deg, rgba(10,200,200,0.4), rgba(200,10,200,.4))",
+      }}
     >
       <div className="flex items-center justify-between py-2 pl-2 pr-4 ">
         <div className="flex gap-3 items-center">
@@ -73,12 +77,19 @@ export default function Pub({ data }) {
         />
       </div>
       <div id="body">
-        <div id="contentTxt" className="py-4 px-2">
-          <h2 className="font-bold md:text-2xl text-xl p-2 border-l-[6px] border-solid border-cyan-100 rounded-lg bg-[rgba(10,200,200,0.05)]">{data.title}</h2>
+        <div
+          id="contentTxt"
+          className="py-4 px-2"
+          style={{
+            background:
+              "linear-gradient(45deg, orange, rgba(200,10,200,.4) 90%)",
+          }}
+        >
+          <h2 className="font-bold text-xl p-2 border-l-[6px] border-solid border-cyan-300">
+            {data.title}
+          </h2>
           {data?.description && (
-            <p 
-            style={{background: 'linear-gradient(45deg, rgba(200,176,20,0.4), rgba(200,10,200,.4))'}}
-            className="p-4 mt-4 rounded-lg bg-[rgba(0,255,34,0.1)]">{data.description}</p>
+            <p className="mt-4 rounded-lg px-3">{data.description}</p>
           )}
         </div>
         {data?.image && (
@@ -88,7 +99,7 @@ export default function Pub({ data }) {
               src={data.image}
               width={500}
               height={500}
-              className="w-full h-auto max-h-[90vh]"
+              className="w-full h-auto"
             />
           </div>
         )}
@@ -97,7 +108,7 @@ export default function Pub({ data }) {
           <audio
             src={data.audio}
             controls
-            className="w-11/12 mx-auto mb-4"
+            className="w-11/12 mx-auto my-4"
           ></audio>
         )}
       </div>
@@ -168,7 +179,7 @@ export default function Pub({ data }) {
               className="px-4 py-2 w-full rounded-lg focus:outline-none text-slate-950"
               type="text"
               placeholder="Escribi un comentario..."
-              maxLength="200"
+              maxLength="250"
               minLength="1"
               required={true}
               value={commentTxt}

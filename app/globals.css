@@ -14,6 +14,16 @@
   }
 }
 
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(157, 0, 255);
+}
+::-webkit-scrollbar-track {
+  background: cyan
+}
+
 body {
   color: rgb(var(--text));
   background: url('../public/bg.jpg');

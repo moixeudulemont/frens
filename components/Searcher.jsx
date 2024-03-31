@@ -6,7 +6,7 @@ export default function Searcher() {
   return (
     <div className="relative flex items-center justify-center">
       <input
-        className="py-2 px-4 rounded-full md:w-[35vw] w-[50vw] bg-[rgba(200,150,0,0.24)] placeholder-white border-4 border-solid border-white focus:outline-none"
+        className="py-2 px-4 rounded-full md:w-[35vw] w-[50vw] bg-[rgba(200,150,0,0.24)] placeholder-white border-2 border-solid border-white focus:outline-none"
         type="search"
         placeholder="Buscar..."
       />
