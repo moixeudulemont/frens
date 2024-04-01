@@ -53,11 +53,7 @@ export default function Pub({ data }) {
   }
 
   return (
-    <motion.article
-      initial={{ opacity: 0,scale: 0 }}
-      whileInView={{ opacity: 1,scale: 1 }}
-      transition={{duration: 0.3, ease: 'circInOut'}}
-      viewport={{ once: true }}
+    <article
       className="flex justify-center flex-col w-full backdrop-blur-md shadow-lg rounded-lg"
       style={{
         background:
@@ -216,6 +212,6 @@ export default function Pub({ data }) {
           </form>
         </motion.div>
       )}
-    </motion.article>
+    </article>
   );
 }
