@@ -8,6 +8,14 @@ import Image from "next/image";
 import { useState } from "react";
 import { FaPowerOff, FaAddressCard, FaHouse } from "react-icons/fa6";
 import Searcher from "@/components/Searcher";
+import { motion } from 'framer-motion';
+
+//VARIANTS FOR DROPDOWN
+const variants = {
+  hidden: {scale: 0},
+  visible: {scale: 1},
+  transition: {duration: 1}
+}
 
 const lobster = Lobster({ subsets: ["latin"], weight: ["400"] });
 
@@ -19,7 +27,7 @@ export default function Navbar() {
   return (
     <nav className="h-[80px] flex items-center md:px-10 px-7 justify-between">
       <Link href="/" className={lobster.className}>
-        <h1 className="text-2xl font-bold">frens</h1>
+        <h1 className="text-2xl font-bold">frenss</h1>
       </Link>
       {params === '/home' && (<Searcher />)}
       {status === "authenticated" ? (
@@ -33,9 +41,11 @@ export default function Navbar() {
               height={45}
               alt="avatar"
             />
-            <div
-              style={{ display: dropdown ? "block" : "none" }}
-              className="absolute top-[120%] right-0 p-3 bg-slate-100 w-[250px] rounded z-10"
+            <motion.div
+              initial={{scale: 0}}
+              animate={dropdown ? 'visible' : 'hidden'}
+              variants={variants}
+              className="absolute top-[120%] right-0 p-3 bg-slate-100 w-[250px] rounded z-10 shadow-md"
             >
               <ul className="flex flex-col gap-2">
                 <li className="px-4 text-slate-950 text-center border-b-2 border-solid border-slate-950">
@@ -71,7 +81,7 @@ export default function Navbar() {
                   <FaPowerOff color="black" size={20} />
                 </li>
               </ul>
-            </div>
+            </motion.div>
           </li>
         </ul>
       ) : (

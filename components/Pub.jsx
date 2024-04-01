@@ -15,8 +15,16 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import YtPlayer from "@/components/YtPlayer";
+import { motion } from "framer-motion";
 
 moment.locale("es");
+
+//FRAME MOTION FOR COMMENTARIES BOX
+const commentVars = {
+  hidden: { scale: 0 },
+  visible: { scale: 1 },
+  transition: { duration: 1 },
+};
 
 export default function Pub({ data }) {
   data = JSON.parse(data);
@@ -45,7 +53,11 @@ export default function Pub({ data }) {
   }
 
   return (
-    <article
+    <motion.article
+      initial={{ opacity: 0,scale: 0 }}
+      whileInView={{ opacity: 1,scale: 1 }}
+      transition={{duration: 0.3, ease: 'circInOut'}}
+      viewport={{ once: true }}
       className="flex justify-center flex-col w-full backdrop-blur-md shadow-lg rounded-lg"
       style={{
         background:
@@ -142,7 +154,11 @@ export default function Pub({ data }) {
         </div>
       </div>
       {comment && (
-        <>
+        <motion.div
+          initial={{ scale: 0 }}
+          variants={commentVars}
+          animate={comment ? "visible" : "hidden"}
+        >
           <div className="px-6">
             {data?.comments.length == 0 ? (
               <h4 className="font-bold text-xl text-center py-2">
@@ -198,8 +214,8 @@ export default function Pub({ data }) {
               </button>
             )}
           </form>
-        </>
+        </motion.div>
       )}
-    </article>
+    </motion.article>
   );
 }
