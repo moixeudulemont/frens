@@ -33,7 +33,7 @@ export default async function Home({searchParams}) {
                 ))
               }
             </section>
-            <Pagination total={count / docsPerPage}/>
+            <Pagination total={count} docs={docsPerPage}/>
         </main>
   );
 }
