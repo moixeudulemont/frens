@@ -10,6 +10,9 @@ import {
   FaRegComment,
   FaPaperPlane,
   FaSpinner,
+  FaArrowRightFromBracket,
+  FaDeleteLeft,
+  FaShareNodes,
 } from "react-icons/fa6";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
@@ -20,20 +23,46 @@ import { motion } from "framer-motion";
 moment.locale("es");
 
 //FRAME MOTION FOR COMMENTARIES BOX
-const commentVars = {
-  hidden: { scale: 0 },
-  visible: { scale: 1 },
+const optVars = {
+  hidden: { opacity: 0, scale: 0 },
+  visible: { opacity: 1, scale: 1 },
   transition: { duration: 1 },
 };
 
 export default function Pub({ data }) {
   data = JSON.parse(data);
-  const { status } = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
   const [comment, setComment] = useState(false);
   const [commentTxt, setCommentTxt] = useState("");
   const [loader, setLoader] = useState(false);
+  const [opts, setOpts] = useState(false);
+  const [delLoader, setDelLoader] = useState(false);
 
+  async function deletePub(data) {
+    if(data.author !== session.user.name) return;
+    if (!confirm("Seguro que desea eliminar esto?")) return;
+    setDelLoader(true);
+    const type = data.image
+      ? "image"
+      : data.yt
+      ? "yt"
+      : data.audio
+      ? "audio"
+      : "text";
+    let url = `/api/publicate?type=${type}&id=${data._id}`;
+    if (type == "image") url += `&src=${data.image.match(/.{24}$/)[0]}`;
+    if (type == "audio") url += `&src=${data.audio.match(/.{24}$/)[0]}`;
+    const res = await fetch(url, {
+      method: "DELETE",
+    });
+    //CLOSE MENU
+    setOpts(false);
+    setDelLoader(false);
+    if (!res.ok) throw res;
+    const response = await res.json();
+    if (response.msg == "OK") router.refresh();
+  }
   async function upComment(e) {
     e.preventDefault();
     if (!status || !commentTxt) return;
@@ -78,11 +107,49 @@ export default function Pub({ data }) {
             <p className="text-sm md:text-md">{moment(data.date).fromNow()}</p>
           </div>
         </div>
-        <FaEllipsis
-          color="white"
-          size={25}
-          className="cursor-pointer hover:animate-pulse"
-        />
+        <div className="relative">
+          <motion.ul
+            animate={opts ? "visible" : "hidden"}
+            initial={{ scale: 0 }}
+            variants={optVars}
+            className="absolute top-0 z-30 right-0 text-black p-2 w-[170px] rounded-lg shadow-md flex flex-col gap-1 items-center justify-center bg-white origin-top-right"
+          >
+            {data.author ===
+              session?.user.name && (
+                <li
+                  onClick={() => deletePub(data)}
+                  className="cursor-pointer hover:bg-red-200 rounded w-full flex justify-between p-3"
+                >
+                  <p className="font-bold text-md text-red-500">Eliminar</p>
+                  {delLoader == true ? (
+                    <FaSpinner className="animate-spin" color="red" size={20} />
+                    ) : (
+                    <FaDeleteLeft color="red" size={20} />
+                  )}
+                </li>
+              )}
+            <li className="cursor-pointer hover:bg-slate-100 rounded w-full flex justify-between p-3">
+              <p className="font-bold text-md">Visitar</p>
+              <FaArrowRightFromBracket color="black" size={20} />
+            </li>
+            <li className="cursor-pointer hover:bg-slate-100 rounded w-full flex justify-between p-3">
+              <p className="font-bold text-md">Compartir</p>
+              <FaShareNodes color="black" size={20} />
+            </li>
+            <li
+              onClick={() => setOpts(false)}
+              className="cursor-pointer hover:bg-slate-950 bg-slate-700 rounded w-full flex justify-center p-1"
+            >
+              <p className="font-bold text-md text-white">Cancelar</p>
+            </li>
+          </motion.ul>
+          <FaEllipsis
+            onClick={() => setOpts(!opts)}
+            color="white"
+            size={25}
+            className="cursor-pointer hover:animate-pulse"
+          />
+        </div>
       </div>
       <div id="body">
         <div
@@ -152,7 +219,7 @@ export default function Pub({ data }) {
       {comment && (
         <motion.div
           initial={{ scale: 0 }}
-          variants={commentVars}
+          variants={optVars}
           animate={comment ? "visible" : "hidden"}
         >
           <div className="px-6">

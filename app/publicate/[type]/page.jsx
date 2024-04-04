@@ -118,7 +118,7 @@ export default function Publicate() {
                     className="animate-pulse"
                   />
                 )}
-                <p className="mt-2 font-bold">Elegir imágen</p>
+                <p className="mt-2 font-bold">Elegir imágen (4.5 MB màximo)</p>
               </label>
             </>
           )}
@@ -173,11 +173,11 @@ export default function Publicate() {
                 htmlFor="upAudio"
               >
                 <FaHeadphones
-                  color={"white"}
+                  color={audio ? 'orange' : 'white'}
                   size={100}
                   className="animate-pulse"
                 />
-                <p className="mt-2 font-bold">Elegir Audio (.mp3 .wav .ogg)</p>
+                <p className="mt-2 font-bold">Elegir Audio (.mp3 .wav .ogg) (4.5 MB màximo)</p>
               </label>
             </>
           )}

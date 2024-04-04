@@ -3,6 +3,14 @@ import { v2 as cloudinary } from "cloudinary";
 import { db } from "@/lib/db";
 import Pubs from "@/lib/models/pubs";
 import { getServerSession } from "next-auth";
+import { Types } from 'mongoose';
+
+//CLOUDYNARI CREDENTIALS
+cloudinary.config({
+  cloud_name: "andy-company",
+  api_key: process.env.CLOUDINARY_KEY,
+  api_secret: process.env.CLOUDINARY_SECRET,
+});
 
 //GET YT ID
 function get_video_id(input) {
@@ -20,15 +28,10 @@ function get_video_id(input) {
 export const POST = async (req) => {
   //GET SESSION
   const { user } = await getServerSession();
-  if (!user) NextResponse.status(401);
+  if (!user) return NextResponse.status(401);
   const { searchParams } = new URL(req.url);
   const type = searchParams.get("type");
   const data = await req.formData();
-  cloudinary.config({
-    cloud_name: "andy-company",
-    api_key: process.env.CLOUDINARY_KEY,
-    api_secret: process.env.CLOUDINARY_SECRET,
-  });
   await db();
 
   //SWITCH TYPE
@@ -156,3 +159,31 @@ export const POST = async (req) => {
   //BAD
   return NextResponse.json({ status: 403 });
 };
+
+export const DELETE = async (req) => {
+  //GET SESSION
+  const { user } = await getServerSession();
+  if (!user) return NextResponse.status(401);
+  //INIT
+  const { searchParams } = new URL(req.url);
+  const type = searchParams.get('type');
+  const id = searchParams.get('id');
+  //VALIDATE IF AUTHOR OF PUB IS TRUST
+  await db();
+  const stat = await Pubs.find({_id: new Types.ObjectId(id), author: user.name});
+  if(stat.length == 0) return NextResponse.json({err: 'NO OWNER'});
+  await Pubs.findByIdAndDelete(id);
+  //DELETE SRC FROM CLOUDYNARI
+  if(type == 'image' || type == 'audio') {
+    const src1 = searchParams.get('src');
+    if(!src1) return;
+    const src2 = src1.replace(/.{4}$/, '');
+    cloudinary.uploader.destroy(src2, (err, res) => {
+      if(err) return NextResponse.json({err});
+    });
+  }
+  
+
+  return NextResponse.json({msg: 'OK'});
+
+}
