@@ -3,8 +3,11 @@ import { db } from "@/lib/db";
 import Pubs from "@/lib/models/pubs";
 import Image from "next/image";
 import moment from "moment";
+import "moment/locale/es";
 import CommentsForm from "@/components/ComentsForm";
-import YtPlayer from '@/components/YtPlayer';
+import Clipboard from "@/components/Clipboard";
+import YtPlayer from "@/components/YtPlayer";
+
 
 moment.locale("es");
 
@@ -40,27 +43,35 @@ export default async function pub({ searchParams }) {
   const pub = await getPub(id);
   if (pub === "EMPTY") return <Empty />;
   return (
-    <main className="md:w-8/12 md:mx-auto w-full flex flex-col md:flex-row justify-center items-stretch gap-5 h-[calc(100dvh - 100px)]">
+    <main className="pb-5 md:pb-0 md:w-8/12 md:mx-auto w-full flex flex-col md:flex-row justify-center items-stretch gap-5 h-[calc(100dvh - 100px)]">
       {/* CONTENT SECTION */}
       <section className="w-full" style={{ flex: 1.5, height: "100%" }}>
-        <article className="shadow-lg w-full h-full p-4 backdrop-blur-lg rounded-lg bg-[rgba(255,255,255,0.1)] flex flex-col">
+        <article className="md:min-h-[85dvh] shadow-lg w-full h-full p-4 backdrop-blur-lg rounded-lg bg-[rgba(255,255,255,0.1)] flex flex-col">
           {/* HEADER OF CARD */}
-          <div className="flex items-center gap-3 mb-4">
-            <Image
-              src={pub.avatar}
-              alt="author avatar"
-              width={40}
-              height={40}
-              className="rounded-full shadow"
-            />
-            <div>
-              <h2 className="text-lg font-bold">{pub.author}</h2>
-              <p>{moment(pub.date).fromNow()}</p>
+          <div className="flex justify-between items-center pb-2 mb-2">
+            <div className="flex gap-3 items-center">
+              <Image
+                src={pub.avatar}
+                alt="author avatar"
+                width={40}
+                height={40}
+                className="rounded-full shadow"
+              />
+              <div>
+                <h2 className="text-lg font-bold">{pub.author}</h2>
+                <p>{moment(pub.date).fromNow()}</p>
+              </div>
             </div>
+            {/* ACTIONS */}
+            <ul>
+              <li>
+                <Clipboard pubId={pub._id.toString()}/>
+              </li>
+            </ul>
           </div>
           {/* BODY OF CARD */}
           <div className="flex-grow flex flex-col gap-2">
-            <h1 className="p-4 text-center bg-orange-400 text-2xl font-bold rounded border-l-8 border-cyan-400 border-solid">
+            <h1 className="p-4 text-center bg-orange-400 text-xl font-bold rounded border-l-8 border-cyan-400 border-solid">
               {pub.title}
             </h1>
             <div className="flex justify-center items-center flex-grow">
@@ -73,12 +84,12 @@ export default async function pub({ searchParams }) {
               )}
               {pub.yt && (
                 <div className="w-full">
-                  <YtPlayer link={pub.yt}/>
+                  <YtPlayer link={pub.yt} />
                 </div>
               )}
               {pub.image && (
                 <div className="w-full h-full">
-                  <Image 
+                  <Image
                     src={pub.image}
                     width={700}
                     height={700}
@@ -89,19 +100,25 @@ export default async function pub({ searchParams }) {
               )}
             </div>
           </div>
-            {pub.description && <p className="mt-3 w-full p-4 rounded-lg bg-pink-400">{pub.description}</p>}
+          {pub.description && (
+            <p className="mt-3 w-full p-4 rounded-lg bg-pink-400">
+              {pub.description}
+            </p>
+          )}
         </article>
       </section>
       {/* SOCIAL SECTION */}
-      <section className="w-full" style={{ flex: 1}}>
+      <section className="w-full" style={{ flex: 1 }}>
         <article className="shadow-lg w-full h-full p-4 backdrop-blur-lg rounded-lg bg-[rgba(255,255,255,0.1)] flex-shrink flex flex-col items-center justify-between">
-          <h1 className="text-2xl font-bold text-center border-b-4 border-cyan-500 border-solid">
+          <h1 className="pb-4 md:pb-2 mb-2 text-2xl font-bold text-center border-b-4 border-cyan-500 border-solid">
             Comentarios
           </h1>
           {/* COMENTARY BOX */}
-          <div className="overflow-x-hidden overflow-y-auto max-h-[80%] w-full">
+          <div className="overflow-x-hidden overflow-y-auto md:max-h-[67dvh] w-full">
             {pub.comments.length == 0 ? (
-              <p className="w-full text-center font-bold text-xl">No hay comentarios</p>
+              <p className="w-full text-center font-bold text-xl">
+                No hay comentarios
+              </p>
             ) : (
               pub.comments.reverse().map((elem, key) => (
                 <article
@@ -119,7 +136,7 @@ export default async function pub({ searchParams }) {
                       width={35}
                       height={35}
                       alt="author avatar"
-                      className="rounded-full shadow"
+                      className="rounded-full shadow m-h-[90dvh]"
                     />
                     <div>
                       <h2 className="text-md font-bold">{elem.author}</h2>
@@ -137,7 +154,7 @@ export default async function pub({ searchParams }) {
             )}
           </div>
           <div className="px-2 w-full">
-            <CommentsForm pubId={JSON.stringify(pub._id)} />
+            <CommentsForm pubId={pub._id.toString()} />
           </div>
         </article>
       </section>
