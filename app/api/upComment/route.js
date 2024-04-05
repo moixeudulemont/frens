@@ -6,7 +6,7 @@ import { getServerSession } from 'next-auth';
 
 export async function POST(req) {
     const { user } = await getServerSession();
-    if(!user) return;
+    if(!user) return NextResponse.json({status: 403});
     const data = await req.formData();
     const comment = data.get('comment').trim();
     const id = data.get('id');

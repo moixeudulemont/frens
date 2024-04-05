@@ -9,7 +9,7 @@ export const metadata = {
 
 export const dynamic = 'force-dynamic';
 
-const docsPerPage = 10;
+const docsPerPage = 15;
 async function getData(page) {
   const skip = (page - 1) * docsPerPage; 
   await db();

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import moment from "moment";
 import "moment/locale/es";
 import {
@@ -8,7 +9,6 @@ import {
   FaRegThumbsUp,
   FaRegStar,
   FaRegComment,
-  FaPaperPlane,
   FaSpinner,
   FaArrowRightFromBracket,
   FaDeleteLeft,
@@ -19,6 +19,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import YtPlayer from "@/components/YtPlayer";
 import { motion } from "framer-motion";
+import ComentsForm from '@/components/ComentsForm';
 
 moment.locale("es");
 
@@ -34,13 +35,11 @@ export default function Pub({ data }) {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [comment, setComment] = useState(false);
-  const [commentTxt, setCommentTxt] = useState("");
-  const [loader, setLoader] = useState(false);
   const [opts, setOpts] = useState(false);
   const [delLoader, setDelLoader] = useState(false);
 
   async function deletePub(data) {
-    if(data.author !== session.user.name) return;
+    if (data.author !== session.user.name) return;
     if (!confirm("Seguro que desea eliminar esto?")) return;
     setDelLoader(true);
     const type = data.image
@@ -61,23 +60,6 @@ export default function Pub({ data }) {
     setDelLoader(false);
     if (!res.ok) throw res;
     const response = await res.json();
-    if (response.msg == "OK") router.refresh();
-  }
-  async function upComment(e) {
-    e.preventDefault();
-    if (!status || !commentTxt) return;
-    setLoader(true);
-    const form = new FormData();
-    form.append("comment", commentTxt.trim());
-    form.append("id", data._id);
-    const res = await fetch("/api/upComment", {
-      method: "POST",
-      body: form,
-    });
-    setCommentTxt("");
-    if (!res.ok) throw "error";
-    const response = await res.json();
-    setLoader(false);
     if (response.msg == "OK") router.refresh();
   }
 
@@ -114,23 +96,27 @@ export default function Pub({ data }) {
             variants={optVars}
             className="absolute top-0 z-30 right-0 text-black p-2 w-[170px] rounded-lg shadow-md flex flex-col gap-1 items-center justify-center bg-white origin-top-right"
           >
-            {data.author ===
-              session?.user.name && (
-                <li
-                  onClick={() => deletePub(data)}
-                  className="cursor-pointer hover:bg-red-200 rounded w-full flex justify-between p-3"
-                >
-                  <p className="font-bold text-md text-red-500">Eliminar</p>
-                  {delLoader == true ? (
-                    <FaSpinner className="animate-spin" color="red" size={20} />
-                    ) : (
-                    <FaDeleteLeft color="red" size={20} />
-                  )}
-                </li>
-              )}
-            <li className="cursor-pointer hover:bg-slate-100 rounded w-full flex justify-between p-3">
-              <p className="font-bold text-md">Visitar</p>
-              <FaArrowRightFromBracket color="black" size={20} />
+            {data.author === session?.user.name && (
+              <li
+                onClick={() => deletePub(data)}
+                className="cursor-pointer hover:bg-red-200 rounded w-full flex justify-between p-3"
+              >
+                <p className="font-bold text-md text-red-500">Eliminar</p>
+                {delLoader == true ? (
+                  <FaSpinner className="animate-spin" color="red" size={20} />
+                ) : (
+                  <FaDeleteLeft color="red" size={20} />
+                )}
+              </li>
+            )}
+            <li className="w-full">
+              <Link
+                href={`/pub?id=${data._id}`}
+                className="cursor-pointer hover:bg-slate-100 rounded w-full flex justify-between p-3"
+              >
+                <p className="font-bold text-md">Visitar</p>
+                <FaArrowRightFromBracket color="black" size={20} />
+              </Link>
             </li>
             <li className="cursor-pointer hover:bg-slate-100 rounded w-full flex justify-between p-3">
               <p className="font-bold text-md">Compartir</p>
@@ -228,7 +214,7 @@ export default function Pub({ data }) {
                 No hay comentarios
               </h4>
             ) : (
-              data.comments.map((elem, key) => (
+              data.comments.reverse().map((elem, key) => (
                 <div key={key} className="py-2 my-2 flex flex-col gap-3">
                   <div className="flex gap-4 items-center">
                     <Image
@@ -250,33 +236,9 @@ export default function Pub({ data }) {
               ))
             )}
           </div>
-          <form
-            onSubmit={upComment}
-            className="pb-4 px-6 flex items-center justify-center gap-5"
-          >
-            <input
-              className="px-4 py-2 w-full rounded-lg focus:outline-none text-slate-950"
-              type="text"
-              placeholder="Escribi un comentario..."
-              maxLength="250"
-              minLength="1"
-              required={true}
-              value={commentTxt}
-              onChange={(e) => setCommentTxt(e.target.value)}
-              disabled={status ? false : true}
-            />
-            {loader ? (
-              <FaSpinner color="white" size={20} className="animate-spin" />
-            ) : (
-              <button>
-                <FaPaperPlane
-                  color="white"
-                  size={20}
-                  className="cursor-pointer hover:animate-pulse"
-                />
-              </button>
-            )}
-          </form>
+          <div className="px-6 pb-4">
+          <ComentsForm pubId={data._id}/>
+          </div>
         </motion.div>
       )}
     </article>

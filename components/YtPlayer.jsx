@@ -27,7 +27,7 @@ export default function YtPlayer({ link }) {
           />
           <FaYoutube 
             onClick={() => setState(true)}
-          className="absolute cursor-pointer" color={'white'} size={90}/>
+          className="absolute cursor-pointer drop-shadow-lg" color={'#f55'} size={90}/>
         </div>
       )}
     </>

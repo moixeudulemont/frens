@@ -4,11 +4,29 @@ import { FaImage, FaSpinner, FaHeadphones, FaYoutube } from "react-icons/fa6";
 import { useState } from "react";
 import { useParams } from "next/navigation";
 
+//PRINCIPAL COMPONENT
 export default function Publicate() {
+  //HOOKS
+  const { type } = useParams();
+  const [imgSrc, setImgSrc] = useState(null);
+  const [file, setFile] = useState(null);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [yt, setYt] = useState("");
+  const [audio, setAudio] = useState(null);
+  const [loader, setLoader] = useState(false);
+  const [overflow, setOverflow] = useState(false);
+
+  //FUNCTIONS HANDLERS
   function previewImg(e) {
     if (type !== "image") return;
     const img = e.target.files[0];
     if (!img) return;
+    if(img.size > 4490000) {
+      setOverflow(true);
+    } else {
+      setOverflow(false);
+    }
     setFile(img);
     const reader = new FileReader();
     reader.onload = (e) => setImgSrc(e.target.result);
@@ -18,6 +36,7 @@ export default function Publicate() {
   //SUBMIT FORM
   async function sendForm(e) {
     e.preventDefault();
+    if(overflow) return;
     const form = new FormData();
     if (!title) {
       alert("Escriba un titulo porfavor");
@@ -50,6 +69,10 @@ export default function Publicate() {
           alert("Seleccione un archivo de audio porfavor");
           return;
         }
+        if(audio.size > 4490000) {
+          alert('El archivo es muy pesado');
+          return;
+        }
         form.append("audio", audio);
         form.append('description', description.trim() || '');
         break;
@@ -73,15 +96,6 @@ export default function Publicate() {
     if (response.msg == "OK") location.href = "/home";
   }
 
-  const { type } = useParams();
-
-  const [imgSrc, setImgSrc] = useState(null);
-  const [file, setFile] = useState(null);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [yt, setYt] = useState("");
-  const [audio, setAudio] = useState(null);
-  const [loader, setLoader] = useState(false);
 
   return (
     <main className="md:px-10 px-5 py-5 h-[calc(100dvh-64px-1.25rem)]">
@@ -108,7 +122,7 @@ export default function Publicate() {
                 {imgSrc ? (
                   <img
                     src={imgSrc}
-                    className="max-w-[200px] rounded-lg"
+                    className={`max-w-[200px] rounded-lg ${overflow ? 'border-4 border-solid border-red-500' : ''}`}
                     alt="preview selected image"
                   />
                 ) : (
@@ -181,7 +195,7 @@ export default function Publicate() {
               </label>
             </>
           )}
-          <button className="shadow rounded-lg px-4 py-2 font-bold w-full flex justify-center bg-amber-500">
+          <button className={`${overflow ? 'pointer-events-none bg-slate-400' : ''} shadow rounded-lg px-4 py-2 font-bold w-full flex justify-center bg-amber-500`}>
             {loader ? (
               <FaSpinner className="animate-spin" color={"white"} size={35} />
             ) : (
