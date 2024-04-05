@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "atropos": "^2.0.2",
     "cloudinary": "^2.0.3",
     "framer-motion": "^11.0.24",
     "moment": "^2.30.1",

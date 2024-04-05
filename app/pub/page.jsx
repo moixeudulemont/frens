@@ -7,7 +7,7 @@ import "moment/locale/es";
 import CommentsForm from "@/components/ComentsForm";
 import Clipboard from "@/components/Clipboard";
 import YtPlayer from "@/components/YtPlayer";
-
+import Prueba from "@/components/Prueba";
 
 moment.locale("es");
 
@@ -65,7 +65,7 @@ export default async function pub({ searchParams }) {
             {/* ACTIONS */}
             <ul>
               <li>
-                <Clipboard pubId={pub._id.toString()}/>
+                <Clipboard pubId={pub._id.toString()} />
               </li>
             </ul>
           </div>
@@ -89,13 +89,15 @@ export default async function pub({ searchParams }) {
               )}
               {pub.image && (
                 <div className="w-full h-full">
-                  <Image
-                    src={pub.image}
-                    width={700}
-                    height={700}
-                    alt="Image of pub"
-                    className="w-full h-full rounded-lg shadow-md mt-1"
-                  />
+                  <Prueba>
+                    <Image
+                      src={pub.image}
+                      width={700}
+                      height={700}
+                      alt="Image of pub"
+                      className="w-full h-full rounded-lg shadow-md mt-1"
+                    />
+                  </Prueba>
                 </div>
               )}
             </div>
