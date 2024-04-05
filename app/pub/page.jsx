@@ -40,7 +40,7 @@ export default async function pub({ searchParams }) {
   const pub = await getPub(id);
   if (pub === "EMPTY") return <Empty />;
   return (
-    <main className="md:h-[calc(100dvh-100px)] md:w-8/12 md:mx-auto w-full flex flex-col md:flex-row justify-center items-center gap-5 h-[calc(100dvh - 100px)]">
+    <main className="md:w-8/12 md:mx-auto w-full flex flex-col md:flex-row justify-center items-center gap-5 h-[calc(100dvh - 100px)]">
       {/* CONTENT SECTION */}
       <section className="w-full" style={{ flex: 1.5, height: "100%" }}>
         <article className="shadow-lg w-full h-full p-4 backdrop-blur-lg rounded-lg bg-[rgba(255,255,255,0.1)] flex flex-col">
