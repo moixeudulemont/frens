@@ -9,7 +9,6 @@ import { useRouter } from "next/navigation";
 }
 export default function ComentsForm({pubId}) {
   //HOOKS
-  const pubID = JSON.parse(pubId);
   const { status } = useSession();
   const router = useRouter();
   const [commentTxt, setCommentTxt] = useState("");
@@ -21,7 +20,7 @@ export default function ComentsForm({pubId}) {
     setLoaderComment(true);
     const form = new FormData();
     form.append("comment", commentTxt.trim());
-    form.append("id", pubID);
+    form.append("id", pubId);
     const res = await fetch("/api/upComment", {
       method: "POST",
       body: form,
