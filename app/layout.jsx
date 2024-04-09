@@ -2,7 +2,6 @@ import "./globals.css";
 import Provider from './Provider';
 import { Quicksand } from 'next/font/google';
 import Navbar from '@/components/Navbar';
-import 'atropos/css';
 
 export const metadata = {
   title: "frens",
