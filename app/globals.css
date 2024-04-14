@@ -2,17 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --bg: #ddd6fe;
-  --text: 0, 0, 0;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #2e1065;
-    --text: 255, 255, 255;
-  }
-}
 
 ::-webkit-scrollbar {
   width: 5px;
@@ -25,7 +14,7 @@
 }
 
 body {
-  color: rgb(var(--text));
+  color: #fff;
   background: url('../public/bg.jpg');
   background-size: cover;
   background-repeat: no-repeat;
