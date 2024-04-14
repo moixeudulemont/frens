@@ -22,7 +22,7 @@ function get_video_id(input) {
     } catch (error) {
       yt_id = false;
     }
-    return yt_id;
+    return yt_id.replace('?', '');
   }
 
 export const POST = async (req) => {

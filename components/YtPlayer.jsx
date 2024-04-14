@@ -19,15 +19,19 @@ export default function YtPlayer({ link }) {
       ) : (
         <div className="relative flex justify-center items-center">
           <Image
-            src={`https://i3.ytimg.com/vi/${link}/hqdefault.jpg`}
-            width={200}
-            height={200}
+            src={`https://i.ytimg.com/vi/${link}/sd1.jpg`}
+            width={640}
+            height={480}
             className="w-full h-auto"
             alt="youtube player"
           />
-          <FaYoutube 
+          <FaYoutube
             onClick={() => setState(true)}
-          className="absolute cursor-pointer drop-shadow-lg" color={'#f55'} size={90}/>
+            className="absolute cursor-pointer drop-shadow-lg z-20"
+            color={"#f33"}
+            size={90}
+          />
+          <div className="absolute w-8 h-8 bg-white z-10"></div>
         </div>
       )}
     </>

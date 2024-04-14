@@ -13,6 +13,10 @@
   background: rgb(156, 255, 255)
 }
 
+::-webkit-search-cancel-button {
+  display: none;
+}
+
 body {
   color: #fff;
   background: url('../public/bg.jpg');

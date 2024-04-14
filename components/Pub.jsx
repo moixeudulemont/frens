@@ -118,10 +118,6 @@ export default function Pub({ data }) {
                 <FaArrowRightFromBracket color="black" size={20} />
               </Link>
             </li>
-            <li className="cursor-pointer hover:bg-slate-100 rounded w-full flex justify-between p-3">
-              <p className="font-bold text-md">Compartir</p>
-              <FaShareNodes color="black" size={20} />
-            </li>
             <li
               onClick={() => setOpts(false)}
               className="cursor-pointer hover:bg-slate-950 bg-slate-700 rounded w-full flex justify-center p-1"
@@ -158,8 +154,8 @@ export default function Pub({ data }) {
             <Image
               alt="imagen linda"
               src={data.image}
-              width={500}
-              height={500}
+              width={720}
+              height={720}
               className="w-full h-auto"
             />
           </div>

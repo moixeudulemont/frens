@@ -26,7 +26,7 @@ export default function Navbar() {
   const router = useRouter();
   return (
     <nav className="h-[80px] flex items-center md:px-10 px-7 justify-between">
-      <Link href="/" className={lobster.className}>
+      <Link href="/home?page=1" className={lobster.className}>
         <h1 className="text-2xl font-bold">frenss</h1>
       </Link>
       {params === '/home' && (<Searcher />)}
