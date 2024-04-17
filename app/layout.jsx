@@ -2,6 +2,7 @@ import "./globals.css";
 import Provider from './Provider';
 import { Quicksand } from 'next/font/google';
 import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 
 export const metadata = {
   title: "frens",
@@ -20,6 +21,7 @@ export default function RootLayout({ children }) {
           <Navbar/>
         </header>
           {children}
+        <Footer />
         </Provider>
       </body>
     </html>
