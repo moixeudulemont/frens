@@ -31,16 +31,16 @@ export default async function Home({searchParams}) {
   //RENDER EXTRAS TO PUB LIST
   function renderPubs() {
     let count = 0;
-    return async (elem, key) => {
+    return async function ext(elem, key) {
       count++;
-      if((count % 4) !== 0) {
-        return <Pub data={JSON.stringify(elem)} key={key}/>
+      if ((count % 4) !== 0) {
+        return <Pub data={JSON.stringify(elem)} key={key} />;
       } else {
         const extrasPubs = await extrasPublications();
         return <>
-          <Pub data={JSON.stringify(elem)} key={key}/>
-          <Extras extras={JSON.stringify(extrasPubs)}/>
-        </>
+          <Pub data={JSON.stringify(elem)} key={key} />
+          <Extras extras={JSON.stringify(extrasPubs)} />
+        </>;
       }
     }
   }
