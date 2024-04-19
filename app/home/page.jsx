@@ -2,6 +2,7 @@ import { db } from '@/lib/db';
 import Pubs from '@/lib/models/pubs';
 import Pub from '@/components/Pub';
 import Pagination from '@/components/Pagination';
+import Extras from '@/components/Extras';
 
 export const metadata = {
   title: "frens - home",
@@ -22,8 +23,27 @@ async function getData(page, search) {
   const count = await Pubs.find({}).count();
   return {pubs, count}
 }
+//GET EXTRAS
+async function extrasPublications() { return await Pubs.aggregate([{$sample: {size: 10}}]); }
 
+//INIT
 export default async function Home({searchParams}) {
+  //RENDER EXTRAS TO PUB LIST
+  function renderPubs() {
+    let count = 0;
+    return async (elem, key) => {
+      count++;
+      if((count % 4) !== 0) {
+        return <Pub data={JSON.stringify(elem)} key={key}/>
+      } else {
+        const extrasPubs = await extrasPublications();
+        return <>
+          <Pub data={JSON.stringify(elem)} key={key}/>
+          <Extras extras={JSON.stringify(extrasPubs)}/>
+        </>
+      }
+    }
+  }
   //FILTER PARAMS
   function filtroPage() {
     if(!searchParams.page || isNaN(parseInt(searchParams.page)) || /^\W*$/.test(searchParams.page)) return 1;
@@ -37,6 +57,7 @@ export default async function Home({searchParams}) {
   const page = filtroPage();
   const search = filtroSearch();
   const { pubs, count } = await getData(page, search);
+  const x = renderPubs();
 
   return (
         <main className='md:px-10 flex flex-col items-center justify-center'>
@@ -47,7 +68,7 @@ export default async function Home({searchParams}) {
               )}
               {
                 pubs.map((elem, key) => (
-                  <Pub data={JSON.stringify(elem)} key={key}/>
+                  x(elem, key)
                 ))
               }
             </section>

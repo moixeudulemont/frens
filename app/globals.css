@@ -7,10 +7,12 @@
   width: 5px;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgb(27, 0, 43);
+  background: rgb(0, 0, 0);
+  border-radius: 9999px;
 }
 ::-webkit-scrollbar-track {
-  background: rgb(156, 255, 255)
+  background: linear-gradient(45deg, #f0f4 50%, #0ff6);
+  border-radius: 9999px;
 }
 
 ::-webkit-search-cancel-button {
