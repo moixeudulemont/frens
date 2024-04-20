@@ -7,7 +7,7 @@ export default function Extras({ extras }) {
   return (
     <>
       <h2 className="text-2xl font-bold text-center tracking-widest">Los mas visitados</h2>
-      <section className="flex gap-4 overflow-x-auto md:h-[500px] h-[300px] w-full p-5 rounded-xl shadow-lg" style={{background: "linear-gradient(45deg, #f0f4, #0ff4)"}}>
+      <section className="flex gap-4 overflow-x-auto md:h-[550px] h-[400px] w-full p-5 rounded-xl shadow-lg" style={{background: "linear-gradient(45deg, #f0f4, #0ff4)"}}>
         {extrasParsed?.map((elem, key) => {
           if (elem.image) {
             return (
