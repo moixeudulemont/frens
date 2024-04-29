@@ -10,7 +10,7 @@ export default function Clipboard({ pubId }) {
   const url = `https://frenss.pro/pub?id=${pubId}`;
   return (
     <>
-        {state && (<Toast msg={'Link copiado al portapapeles'}/>)}
+        {state && (<Toast msg={'Link copiado, lo puede pegar donde quiera'}/>)}
       <FaShareNodes
         color="white"
         size={25}

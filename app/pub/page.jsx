@@ -144,7 +144,9 @@ export default async function pub({ searchParams }) {
                   </div>
                   {/* BODY */}
                   <div>
-                    <p className="break-words border-l-8 border-solid border-cyan-300 py-2 px-4 rounded-lg">
+                    <p 
+                    style={{wordBreak: 'break-word !important'}}
+                    className="border-l-8 border-solid border-cyan-300 py-2 px-4 rounded-lg">
                       {elem.msg}
                     </p>
                   </div>
