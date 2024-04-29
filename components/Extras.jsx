@@ -28,7 +28,7 @@ export default function Extras({ extras }) {
             x: [mobile ? "-1000%" : "-200%", "0%"],
             transition: {
               ease: "linear",
-              duration: mobile ? 15 : 50,
+              duration: mobile ? 25 : 50,
               repeat: Infinity,
             },
           }}
