@@ -1,27 +1,33 @@
 import "./globals.css";
-import Provider from './Provider';
-import { Quicksand } from 'next/font/google';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+import Provider from "./Provider";
+import { Quicksand } from "next/font/google";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 export const metadata = {
   title: "frens",
   description: "social web named frens :)",
-  charset: "utf-8"
+  charset: "utf-8",
 };
 
-const quicksand = Quicksand({ subsets: ['latin'], weight: ['300', '600'] });
+const quicksand = Quicksand({ subsets: ["latin"], weight: ["300", "600"] });
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body style={quicksand.style}>
+        <video
+          id="bgVideo"
+          src="https://res.cloudinary.com/andy-company/video/upload/v1714498186/bg_yjf9nj.mp4"
+          autoPlay
+          loop
+        ></video>
         <Provider>
-        <header>
-          <Navbar/>
-        </header>
+          <header>
+            <Navbar />
+          </header>
           {children}
-        <Footer />
+          <Footer />
         </Provider>
       </body>
     </html>
