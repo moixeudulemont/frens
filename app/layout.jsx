@@ -21,6 +21,7 @@ export default function RootLayout({ children }) {
           src="https://res.cloudinary.com/andy-company/video/upload/v1714498186/bg_yjf9nj.mp4"
           autoPlay
           loop
+          muted
         ></video>
         <Provider>
           <header>

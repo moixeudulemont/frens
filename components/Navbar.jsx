@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { signIn, useSession, signOut } from "next-auth/react";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaPowerOff, FaAddressCard, FaHouse } from "react-icons/fa6";
 import Searcher from "@/components/Searcher";
 import { motion } from 'framer-motion';
@@ -24,6 +24,12 @@ export default function Navbar() {
   const [dropdown, setDropdown] = useState(false);
   const params = usePathname();
   const router = useRouter();
+  useEffect(() => {
+    const bgVideo = document.querySelector("#bgVideo");
+    bgVideo.addEventListener( 'canplay', function() {
+      bgVideo.play();
+      });
+  }, [])
   return (
     <nav className="h-[80px] flex items-center md:px-10 px-7 justify-between">
       <Link href="/home?page=1" className={lobster.className}>
