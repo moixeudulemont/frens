@@ -12,7 +12,7 @@ export const metadata = {
 export const dynamic = "force-dynamic";
 
 const docsPerPage = 20;
-async function getData(page, search) {
+async function getData(page, search, author) {
   const skip = (page - 1) * docsPerPage;
   await db();
   if (search) {
@@ -23,6 +23,14 @@ async function getData(page, search) {
     const count = await Pubs.find({
       title: { $regex: search, $options: "i" },
     }).count();
+    return { pubs, count };
+  }
+  if(author !== "all" && !search) {
+    const pubs = await Pubs.find({ author: author })
+      .sort({ date: -1 })
+      .skip(skip)
+      .limit(docsPerPage);
+    const count = await Pubs.find({author: author}).count();
     return { pubs, count };
   }
   const pubs = await Pubs.find({})
@@ -71,17 +79,25 @@ export default async function Home({ searchParams }) {
     if (!searchParams.search || /^\W*$/.test(searchParams.search)) return "";
     return searchParams.search;
   }
+  function filtroAuthor() {
+    if (!searchParams.author || /^\W*$/.test(searchParams.author)) return "all";
+    return searchParams.author;
+  }
   //INITIALIZE
   const page = filtroPage();
   const search = filtroSearch();
-  const { pubs, count } = await getData(page, search);
+  const authorPage = filtroAuthor();
+  const { pubs, count } = await getData(page, search, authorPage);
   const x = renderPubs();
 
   return (
     <main>
+      {authorPage !== 'all' ? (
+        <h1 className="text-center text-2xl font-bold my-5 bg-amber-500 py-2 shadow-md">{authorPage}</h1>
+      ) : ''}
       <section className="flex gap-5 mb-5">
         <div id="filters" className="md:w-3/12 md:block hidden">
-          <Filters />
+          <Filters url={searchParams.author}/>
         </div>
         <div className="flex flex-col gap-5 md:w-6/12 w-full" id="pubs">
           {search && (
