@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import Pubs from "@/lib/models/pubs";
+import Users from "@/lib/models/users.js";
 import Pub from "@/components/Pub";
 import Pagination from "@/components/Pagination";
 import Extras from "@/components/Extras";
@@ -11,10 +12,12 @@ export const metadata = {
 
 export const dynamic = "force-dynamic";
 
+await db();
+const users = await Users.find({});
+
 const docsPerPage = 20;
 async function getData(page, search, author) {
   const skip = (page - 1) * docsPerPage;
-  await db();
   if (search) {
     const pubs = await Pubs.find({ title: { $regex: search, $options: "i" } })
       .sort({ date: -1 })
@@ -95,9 +98,9 @@ export default async function Home({ searchParams }) {
       {authorPage !== 'all' ? (
         <h1 className="text-center text-2xl font-bold my-5 bg-amber-500 py-2 shadow-md">{authorPage}</h1>
       ) : ''}
-      <section className="flex gap-5 mb-5">
-        <div id="filters" className="md:w-3/12 md:block hidden">
-          <Filters url={searchParams.author}/>
+      <section className="flex md:gap-5 mb-5">
+        <div id="filters" className="md:w-3/12 w-12/12">
+          <Filters url={searchParams.author} users={JSON.stringify(users)}/>
         </div>
         <div className="flex flex-col gap-5 md:w-6/12 w-full" id="pubs">
           {search && (
