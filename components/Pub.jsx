@@ -65,7 +65,7 @@ export default function Pub({ data }) {
 
   return (
     <article
-      className="flex justify-center flex-col w-full backdrop-blur-md shadow-lg rounded-lg"
+      className="flex justify-center flex-col w-full backdrop-blur-sm shadow-lg rounded-lg"
       style={{
         background:
           "linear-gradient(-45deg, rgba(10,200,200,0.4), rgba(200,10,200,.4))",

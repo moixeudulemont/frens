@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
           muted
         ></video>
         <Provider>
-          <header>
+          <header className="sticky top-0 z-10 mb-5">
             <Navbar />
           </header>
           {children}

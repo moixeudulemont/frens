@@ -21,14 +21,14 @@ export default function Extras({ extras }) {
       <h2 className="text-2xl font-bold text-center tracking-widest p-5 bg-lime-500 w-full rounded-lg shadow-md">
         Los mas visitados
       </h2>
-      <section className="overflow-x-scroll md:overflow-x-hidden md:h-[550px] h-[400px] w-full md:w-[90vw] p-5 rounded-xl shadow-lg bg-orange-400">
+      <section className="overflow-x-hidden md:h-[550px] h-[400px] p-5 rounded-xl shadow-md backdrop-blur-md" style={{background: "linear-gradient(45deg, #f0f9, #ff09)"}}>
         <motion.div
           initial={{ x: "-100%" }}
           animate={{
             x: [mobile ? "-1000%" : "-200%", "0%"],
             transition: {
               ease: "linear",
-              duration: mobile ? 25 : 50,
+              duration: mobile ? 25 : 10,
               repeat: Infinity,
             },
           }}
