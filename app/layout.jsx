@@ -11,19 +11,15 @@ const quicksand = Quicksand({ subsets: ["latin"], weight: ["300", "600"] });
 
 export default function RootLayout({ children }) {
   useEffect(() => {
-    window.OneSignal = window.OneSignal || [];
-    OneSignal.push(function () {
-        OneSignal.init({
-            appId: "736e3c17-35ed-4cf9-a2b7-bd58f727c849",
-            safari_web_id: "web.onesignal.auto.62a04992-e924-4258-8064-560c4d6dc347",
-            notifyButton: {
-                enable: true,
-            }
-        });
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(function(OneSignal) {
+    OneSignal.init({
+      appId: "736e3c17-35ed-4cf9-a2b7-bd58f727c849",
     });
+  });
 
     return () => {
-      window.OneSignal = undefined;
+      window.OneSignalDeferred = undefined;
     };
   }, []);
 
