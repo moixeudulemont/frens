@@ -30,7 +30,7 @@ export default function Filters({ url, users }) {
   }, []);
   return (
     <>
-    <div onClick={() => setStatus(true)} className="md:hidden fixed w-[40px] h-[40px] flex justify-center items-center rounded-full bg-lime-500 shadow-md cursor-pointer bottom-[35px] left-[25px] z-50">
+    <div onClick={() => setStatus(true)} className="hidden fixed w-[40px] h-[40px] justify-center items-center rounded-full bg-lime-500 shadow-md cursor-pointer bottom-[35px] left-[25px] z-50">
       <FaPager size={20}/>
     </div>
     <section
