@@ -8,14 +8,14 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { FaPowerOff, FaAddressCard, FaHouse } from "react-icons/fa6";
 import Searcher from "@/components/Searcher";
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
 //VARIANTS FOR DROPDOWN
 const variants = {
-  hidden: {scale: 0},
-  visible: {scale: 1},
-  transition: {duration: 1}
-}
+  hidden: { scale: 0 },
+  visible: { scale: 1 },
+  transition: { duration: 1 },
+};
 
 const lobster = Lobster({ subsets: ["latin"], weight: ["400"] });
 
@@ -25,17 +25,21 @@ export default function Navbar() {
   const params = usePathname();
   const router = useRouter();
   useEffect(() => {
+    //VIDEO
     const bgVideo = document.querySelector("#bgVideo");
-    bgVideo.addEventListener( 'canplay', function() {
+    bgVideo.addEventListener("canplay", function () {
       bgVideo.play();
-      });
-  }, [])
+    });
+  }, []);
   return (
-    <nav className="h-[70px] flex items-center md:px-10 px-7 justify-between backdrop-blur-sm shadow-md" style={{background: "linear-gradient(45deg, #f0f9, #ff09)"}}>
+    <nav
+      className="h-[70px] flex items-center md:px-10 px-7 justify-between backdrop-blur-sm shadow-md"
+      style={{ background: "linear-gradient(45deg, #f0f9, #ff09)" }}
+    >
       <Link href="/home?page=1" className={lobster.className}>
         <h1 className="text-2xl font-bold">frenss</h1>
       </Link>
-      {params === '/home' && (<Searcher />)}
+      {params === "/home" && <Searcher />}
       {status === "authenticated" ? (
         <ul className="flex justify-center items-center gap-5">
           <li className="relative flex items-center gap-4">
@@ -48,8 +52,8 @@ export default function Navbar() {
               alt="avatar"
             />
             <motion.div
-              initial={{scale: 0}}
-              animate={dropdown ? 'visible' : 'hidden'}
+              initial={{ scale: 0 }}
+              animate={dropdown ? "visible" : "hidden"}
               variants={variants}
               className="absolute top-[120%] right-0 p-3 bg-slate-100 w-[250px] rounded z-10 shadow-md"
             >
