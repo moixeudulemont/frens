@@ -3,7 +3,35 @@ import { v2 as cloudinary } from "cloudinary";
 import { db } from "@/lib/db";
 import Pubs from "@/lib/models/pubs";
 import { getServerSession } from "next-auth";
-import { Types } from 'mongoose';
+import { Types } from "mongoose";
+
+//Web Push Notifications
+async function webPushNotif(title, imgSrc, desc = '') {
+  const url = "https://api.onesignal.com/notifications";
+  const options = {
+    method: "POST",
+    headers: {
+      accept: "application/json",
+      Authorization: "basic ZTFjYmM5NzItYzMxMy00NTRkLWI2Y2UtMzJmZDY1NTNhZTg0",
+      "content-type": "application/json",
+    },
+    body: JSON.stringify({
+      headings: { en: title },
+      chrome_web_image: imgSrc,
+      chrome_web_icon: 'https://res.cloudinary.com/andy-company/image/upload/v1714675218/favicon_btppz8.png',
+      chrome_web_badge: 'https://res.cloudinary.com/andy-company/image/upload/v1714675434/Recurso_1_tredno.png',
+      contents: { en: desc },
+      web_url: "https://frenss.pro/home",
+      app_id: "736e3c17-35ed-4cf9-a2b7-bd58f727c849",
+      name: "Frenss",
+      included_segments: ["Total Subscriptions"],
+    }),
+  };
+
+  const res = await fetch(url, options);
+  
+  return await res.json();
+}
 
 //CLOUDYNARI CREDENTIALS
 cloudinary.config({
@@ -14,16 +42,16 @@ cloudinary.config({
 
 //GET YT ID
 function get_video_id(input) {
-    let yt_id = false;
-    try {
-      yt_id = input.match(
-        /(?:youtu\.be\/|youtube\.com(?:\/embed\/|\/v\/|\/watch\?v=|\/user\/\S+|\/ytscreeningroom\?v=|\/sandalsResorts#\w\/\w\/.*\/))([^\/&]{10,12})/
-      )[1];
-    } catch (error) {
-      yt_id = false;
-    }
-    return yt_id.replace('?', '');
+  let yt_id = false;
+  try {
+    yt_id = input.match(
+      /(?:youtu\.be\/|youtube\.com(?:\/embed\/|\/v\/|\/watch\?v=|\/user\/\S+|\/ytscreeningroom\?v=|\/sandalsResorts#\w\/\w\/.*\/))([^\/&]{10,12})/
+    )[1];
+  } catch (error) {
+    yt_id = false;
   }
+  return yt_id.replace("?", "");
+}
 
 export const POST = async (req) => {
   //GET SESSION
@@ -89,6 +117,9 @@ export const POST = async (req) => {
           image: url,
         });
 
+        const res = await webPushNotif(data.get('title').trim(), url, data.get('description').trim());
+        console.log(res);
+
         return NextResponse.json({ msg: "OK" });
       }
       break;
@@ -96,8 +127,8 @@ export const POST = async (req) => {
     //VIDEO
     case "video": {
       if (!data.get("yt")) NextResponse.json({ err: "EMPTY" });
-      const yt_id = get_video_id(data.get('yt').trim());
-      if(!yt_id) NextResponse.json({err: 'BAD URL'})
+      const yt_id = get_video_id(data.get("yt").trim());
+      if (!yt_id) NextResponse.json({ err: "BAD URL" });
       //SAVE TO DB
       await Pubs.create({
         author: user.name,
@@ -166,24 +197,24 @@ export const DELETE = async (req) => {
   if (!user) return NextResponse.status(401);
   //INIT
   const { searchParams } = new URL(req.url);
-  const type = searchParams.get('type');
-  const id = searchParams.get('id');
+  const type = searchParams.get("type");
+  const id = searchParams.get("id");
   //VALIDATE IF AUTHOR OF PUB IS TRUST
   await db();
-  const stat = await Pubs.find({_id: new Types.ObjectId(id), author: user.name});
-  if(stat.length == 0) return NextResponse.json({err: 'NO OWNER'});
+  const stat = await Pubs.find({
+    _id: new Types.ObjectId(id),
+    author: user.name,
+  });
+  if (stat.length == 0) return NextResponse.json({ err: "NO OWNER" });
   await Pubs.findByIdAndDelete(id);
   //DELETE SRC FROM CLOUDYNARI
-  if(type == 'image' || type == 'audio') {
-    const src1 = searchParams.get('src');
-    if(!src1) return;
-    const src2 = src1.replace(/.{4}$/, '');
+  if (type == "image" || type == "audio") {
+    const src1 = searchParams.get("src");
+    if (!src1) return;
+    const src2 = src1.replace(/.{4}$/, "");
     cloudinary.uploader.destroy(src2, (err, res) => {
-      if(err) return NextResponse.json({err});
+      if (err) return NextResponse.json({ err });
     });
   }
-  
-
-  return NextResponse.json({msg: 'OK'});
-
-}
+  return NextResponse.json({ msg: "OK" });
+};
