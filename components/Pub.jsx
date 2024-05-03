@@ -12,7 +12,6 @@ import {
   FaSpinner,
   FaArrowRightFromBracket,
   FaDeleteLeft,
-  FaShareNodes,
 } from "react-icons/fa6";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
@@ -20,6 +19,7 @@ import { useRouter } from "next/navigation";
 import YtPlayer from "@/components/YtPlayer";
 import { motion } from "framer-motion";
 import ComentsForm from '@/components/ComentsForm';
+import { like } from '@/app/actions/serverActions';
 
 moment.locale("es");
 
@@ -30,14 +30,17 @@ const optVars = {
   transition: { duration: 1 },
 };
 
-export default function Pub({ data }) {
+export default async function Pub({ data }) {
+  //HOOKS
   data = JSON.parse(data);
   const { data: session, status } = useSession();
   const router = useRouter();
   const [comment, setComment] = useState(false);
   const [opts, setOpts] = useState(false);
   const [delLoader, setDelLoader] = useState(false);
-
+  const [likes, setLikes] = useState(data.likes.length);
+  const [likesDissable, setLikesDissable] = useState(false);
+  //INIT
   async function deletePub(data) {
     if (data.author !== session.user.name) return;
     if (!confirm("Seguro que desea eliminar esto?")) return;
@@ -172,11 +175,20 @@ export default function Pub({ data }) {
       <div className="flex items-center justify-around py-3 bg-[rgba(109,255,187,0.1)] rounded-b-lg">
         <div className="flex gap-3">
           <FaRegThumbsUp
+            onClick={async () => {
+              if(likesDissable) return;
+              const res = await like(status, session.user.name, data._id)
+              if(res === 'OK') {
+                setLikes(likes + 1);
+              } else {
+                setLikesDissable(true);
+              }
+            }}
             color="white"
             size={20}
-            className="cursor-pointer hover:animate-pulse"
+            className={`cursor-pointer hover:animate-pulse ${likesDissable ? "pointer-events-none" : ""}`}
           />
-          <p className="font-bold">0</p>
+          <p className="font-bold">{likes}</p>
         </div>
         <div className="flex gap-3">
           <FaRegStar
