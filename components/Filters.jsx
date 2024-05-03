@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from "react";
 import { FaTimes } from "react-icons/fa";
-import { FaPager } from "react-icons/fa6";
+import { HiDocumentDuplicate } from "react-icons/hi";
 
 //IF SELECTED CHANGE BACKGROUND
 function changeBG(url, name) {
@@ -30,12 +30,12 @@ export default function Filters({ url, users }) {
   }, []);
   return (
     <>
-    <div onClick={() => setStatus(true)} className="md:hidden fixed w-[50px] h-[50px] flex justify-center items-center rounded-full bg-lime-500 shadow-md cursor-pointer bottom-[35px] right-[25px] z-50">
-      <FaPager size={30}/>
+    <div onClick={() => setStatus(true)} className="md:hidden fixed w-[45px] h-[45px] flex justify-center items-center rounded-full bg-indigo-600 shadow-lg cursor-pointer bottom-[35px] right-[25px] z-50">
+      <HiDocumentDuplicate size={27}/>
     </div>
     <section
-      style={{ background: "linear-gradient(45deg, #f0f9, #ff09)" }}
-      className={`md:h-[85dvh] h-[90dvh] w-full rounded-tr-lg rounded-br-lg md:sticky z-[60] top-[75px] fixed backdrop-blur-md shadow-md ${status ? 'flex' : 'hidden'} flex-col items-center gap-5 p-3`}
+      style={{ background: "linear-gradient(45deg, #f0f9, #ff09)", transition: '0.3s' }}
+      className={`md:h-[85dvh] h-[90dvh] w-full rounded-tr-lg rounded-br-lg md:sticky z-[60] top-[90px] fixed backdrop-blur-md shadow-md ${status ? 'scale-100 opacity-100' : 'scale-0 opacity-0'} flex flex-col items-center gap-5 p-3`}
     >
       <div className="w-full flex items-center">
         <h1 className="font-bold text-xl text-center" style={{flex: 2}}>Páginas</h1>
