@@ -30,7 +30,8 @@ const optVars = {
   transition: { duration: 1 },
 };
 
-export default async function Pub({ data }) {
+export default function Pub({ data }) {
+  console.log('asd')
   //HOOKS
   data = JSON.parse(data);
   const { data: session, status } = useSession();
