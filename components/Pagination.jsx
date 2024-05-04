@@ -21,7 +21,7 @@ export default function Pagination({total, docs}) {
     function urlPath(elem) {
         if(search) return `/home?page=${elem+1}&search=${search}`;
         if(author !== 'all') return `/home?page=${elem+1}&author=${author}`
-        return '/home?page=1&author=all';
+        return `/home?page=${elem+1}&author=all`;
     }
     
   return (
