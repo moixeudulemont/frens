@@ -7,6 +7,7 @@ import "moment/locale/es";
 import CommentsForm from "@/components/ComentsForm";
 import Clipboard from "@/components/Clipboard";
 import YtPlayer from "@/components/YtPlayer";
+import { FaArrowLeft } from "react-icons/fa6";
 
 moment.locale("es");
 
@@ -42,8 +43,11 @@ export default async function pub({ searchParams }) {
   const pub = await getPub(id);
   if (pub === "EMPTY") return <Empty />;
   return (
-    <main className="pb-5 md:pb-0 md:w-8/12 md:mx-auto w-full flex flex-col md:flex-row justify-center items-stretch gap-5 h-[calc(100dvh - 100px)]">
+    <main className="pb-5 md:w-8/12 md:mx-auto w-full flex flex-col md:flex-row justify-center items-stretch gap-5 h-[calc(100dvh - 100px)]">
       {/* CONTENT SECTION */}
+      <Link href="/home" className="md:ml-0 ml-5">
+        <FaArrowLeft size={30} />
+      </Link>
       <section className="w-full" style={{ flex: 1.5, height: "100%" }}>
         <article className="md:min-h-[85dvh] shadow-lg w-full h-full p-4 backdrop-blur-lg rounded-lg bg-[rgba(255,255,255,0.1)] flex flex-col">
           {/* HEADER OF CARD */}
@@ -144,9 +148,10 @@ export default async function pub({ searchParams }) {
                   </div>
                   {/* BODY */}
                   <div>
-                    <p 
-                    style={{wordBreak: 'break-word !important'}}
-                    className="border-l-8 border-solid border-cyan-300 py-2 px-4 rounded-lg">
+                    <p
+                      style={{ wordBreak: "break-word !important" }}
+                      className="border-l-8 border-solid border-cyan-300 py-2 px-4 rounded-lg"
+                    >
                       {elem.msg}
                     </p>
                   </div>

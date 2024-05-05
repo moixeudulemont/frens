@@ -4,7 +4,7 @@ import { FaShareNodes } from "react-icons/fa6";
 import Toast from "@/components/Toast";
 import { useState } from 'react';
 
-export default function Clipboard({ pubId }) {
+export default function Clipboard({ pubId, color = "white" }) {
     //HOOKS
     const [state, setState] = useState(false);
   const url = `https://frenss.pro/pub?id=${pubId}`;
@@ -12,7 +12,7 @@ export default function Clipboard({ pubId }) {
     <>
         {state && (<Toast msg={'Link copiado, lo puede pegar donde quiera'}/>)}
       <FaShareNodes
-        color="white"
+        color={color}
         size={25}
         className="hover:animate-pulse cursor-pointer"
         onClick={() => {

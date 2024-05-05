@@ -27,11 +27,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
+        <title>Frenss</title>
         <script
           src="https://cdn.onesignal.com/sdks/OneSignalSDK.js"
           async=""
         ></script>
-        <link rel="icon" href="/favicon.png" sizes="any" />
       </head>
       <body style={quicksand.style}>
         <video

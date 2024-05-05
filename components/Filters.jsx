@@ -34,16 +34,16 @@ export default function Filters({ url, users }) {
       <HiDocumentDuplicate size={27}/>
     </div>
     <section
-      style={{ background: "linear-gradient(45deg, #f0f9, #ff09)", transition: '0.3s' }}
-      className={`md:h-[85dvh] h-[90dvh] w-full rounded-tr-lg rounded-br-lg md:sticky z-[60] top-[90px] fixed backdrop-blur-md shadow-md ${status ? 'scale-100 opacity-100' : 'scale-0 opacity-0'} flex flex-col items-center gap-5 p-3`}
+      style={{ background: "linear-gradient(45deg, #f0f9, #ff09)", transition: '0.3s', zIndex: 101 }}
+      className={`md:h-[85dvh] h-[100dvh] top-0 w-full rounded-tr-lg rounded-br-lg md:sticky md:top-[90px] fixed backdrop-blur-md shadow-md ${status ? 'scale-100 opacity-100' : 'scale-0 opacity-0'} flex flex-col items-center gap-5 p-3`}
     >
       <div className="w-full flex items-center">
-        <h1 className="font-bold text-xl text-center" style={{flex: 2}}>Páginas</h1>
-        <FaTimes onClick={() => setStatus(false)} size={20} className="md:hidden"/>
+        <h1 className="font-bold text-xl text-center translate-x-3 md:translate-x-0" style={{flex: 2}}>Páginas</h1>
+        <FaTimes style={{zIndex: 102}} onClick={() => setStatus(false)} size={20} className="md:hidden"/>
       </div>
       <article className="w-full">
         <fieldset className="w-full flex flex-col gap-5 justify-center items-center">
-          <div className="flex flex-col gap-5 items-center overflow-auto md:h-[72dvh] h-[80dvh] w-full px-3 py-1">
+          <div className="flex flex-col gap-5 items-center overflow-auto md:h-[72dvh] h-[89dvh] w-full px-3 py-1">
           <div
                 onClick={() => {
                   router.push(`/home`);

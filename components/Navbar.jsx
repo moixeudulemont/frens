@@ -6,7 +6,11 @@ import { useRouter, usePathname } from "next/navigation";
 import { signIn, useSession, signOut } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { FaPowerOff, FaAddressCard, FaHouse } from "react-icons/fa6";
+import {
+  FaPowerOff,
+  FaAddressCard,
+  FaHouse
+} from "react-icons/fa6";
 import Searcher from "@/components/Searcher";
 import { motion } from "framer-motion";
 
@@ -35,8 +39,8 @@ export default function Navbar() {
     <nav
       className="h-[70px] z-[100] flex items-center md:px-10 px-7 justify-between backdrop-blur-sm shadow-md"
       style={{ background: "linear-gradient(45deg, #f0f9, #ff09)" }}
-    >
-      <Link href="/home?page=1" className={lobster.className}>
+    >     
+      <Link href="/home?page=1" className={`${lobster.className} flex items-center gap-4`}>
         <h1 className="text-2xl font-bold">frenss</h1>
       </Link>
       {params === "/home" && <Searcher />}

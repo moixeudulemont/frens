@@ -12,14 +12,16 @@ import {
   FaSpinner,
   FaArrowRightFromBracket,
   FaDeleteLeft,
+  FaShareNodes,
 } from "react-icons/fa6";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import YtPlayer from "@/components/YtPlayer";
 import { motion } from "framer-motion";
-import ComentsForm from '@/components/ComentsForm';
-import { like } from '@/app/actions/serverActions';
+import ComentsForm from "@/components/ComentsForm";
+import { like } from "@/app/actions/serverActions";
+import Clipboard from "@/components/Clipboard";
 
 moment.locale("es");
 
@@ -103,24 +105,28 @@ export default function Pub({ data }) {
               <Link
                 href={`/pub?id=${data._id}`}
                 className="cursor-pointer hover:bg-slate-100 rounded w-full flex justify-between p-3"
-                >
+              >
                 <p className="font-bold text-md">Visitar</p>
                 <FaArrowRightFromBracket color="black" size={20} />
               </Link>
             </li>
-                {data.author === session?.user.name && (
-                  <li
-                    onClick={() => deletePub(data)}
-                    className="cursor-pointer hover:bg-red-200 rounded w-full flex justify-between p-3"
-                  >
-                    <p className="font-bold text-md text-red-500">Eliminar</p>
-                    {delLoader == true ? (
-                      <FaSpinner className="animate-spin" color="red" size={20} />
-                    ) : (
-                      <FaDeleteLeft color="red" size={20} />
-                    )}
-                  </li>
+            <li className="cursor-pointer hover:bg-slate-100 rounded w-full flex justify-between p-3">
+              <p className="font-bold text-md">Copiar link</p>
+              <Clipboard pubId={data._id} color="black" />
+            </li>
+            {data.author === session?.user.name && (
+              <li
+                onClick={() => deletePub(data)}
+                className="cursor-pointer hover:bg-red-200 rounded w-full flex justify-between p-3"
+              >
+                <p className="font-bold text-md text-red-500">Eliminar</p>
+                {delLoader == true ? (
+                  <FaSpinner className="animate-spin" color="red" size={20} />
+                ) : (
+                  <FaDeleteLeft color="red" size={20} />
                 )}
+              </li>
+            )}
             <li
               onClick={() => setOpts(false)}
               className="cursor-pointer hover:bg-slate-950 bg-slate-700 rounded w-full flex justify-center p-1"
@@ -176,9 +182,9 @@ export default function Pub({ data }) {
         <div className="flex gap-3">
           <FaRegThumbsUp
             onClick={async () => {
-              if(likesDissable) return;
-              const res = await like(status, session.user.name, data._id)
-              if(res === 'OK') {
+              if (likesDissable) return;
+              const res = await like(status, session.user.name, data._id);
+              if (res === "OK") {
                 setLikes(likes + 1);
               } else {
                 setLikesDissable(true);
@@ -186,7 +192,9 @@ export default function Pub({ data }) {
             }}
             color="white"
             size={20}
-            className={`cursor-pointer hover:animate-pulse ${likesDissable ? "pointer-events-none" : ""}`}
+            className={`cursor-pointer hover:animate-pulse ${
+              likesDissable ? "pointer-events-none" : ""
+            }`}
           />
           <p className="font-bold">{likes}</p>
         </div>
@@ -245,7 +253,7 @@ export default function Pub({ data }) {
             )}
           </div>
           <div className="px-6 pb-4">
-          <ComentsForm pubId={data._id}/>
+            <ComentsForm pubId={data._id} />
           </div>
         </motion.div>
       )}
