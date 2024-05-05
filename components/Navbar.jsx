@@ -33,7 +33,7 @@ export default function Navbar() {
   }, []);
   return (
     <nav
-      className="h-[70px] flex items-center md:px-10 px-7 justify-between backdrop-blur-sm shadow-md"
+      className="h-[70px] z-[100] flex items-center md:px-10 px-7 justify-between backdrop-blur-sm shadow-md"
       style={{ background: "linear-gradient(45deg, #f0f9, #ff09)" }}
     >
       <Link href="/home?page=1" className={lobster.className}>

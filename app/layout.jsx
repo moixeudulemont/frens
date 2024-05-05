@@ -27,11 +27,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/favicon.png" />
         <script
           src="https://cdn.onesignal.com/sdks/OneSignalSDK.js"
           async=""
         ></script>
+        <link rel="icon" href="/favicon.png" sizes="any" />
       </head>
       <body style={quicksand.style}>
         <video
@@ -42,7 +42,7 @@ export default function RootLayout({ children }) {
           muted
         ></video>
         <Provider>
-          <header className="sticky top-0 z-10 mb-5">
+          <header className="sticky top-0 z-[61] mb-5">
             <Navbar />
           </header>
           {children}

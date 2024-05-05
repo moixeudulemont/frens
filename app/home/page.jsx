@@ -5,6 +5,7 @@ import Pub from "@/components/Pub";
 import Pagination from "@/components/Pagination";
 import Extras from "@/components/Extras";
 import Filters from "@/components/Filters";
+import Portada from "@/components/Portada";
 
 export const metadata = {
   title: "frens - home",
@@ -55,7 +56,7 @@ export default async function Home({ searchParams }) {
     let count = 0;
     return async function ext(elem, key) {
       count++;
-      if (count % 4 !== 0) {
+      if (count % 10 !== 0) {
         return <Pub data={JSON.stringify(elem)} key={key} />;
       } else {
         const extrasPubs = await extrasPublications();
@@ -112,6 +113,9 @@ export default async function Home({ searchParams }) {
             </h1>
           )}
           {pubs.map((elem, key) => x(elem, key))}
+        </div>
+        <div className="hidden md:w-3/12 md:flex">
+          <Portada />
         </div>
       </section>
       <Pagination total={count} docs={docsPerPage} />

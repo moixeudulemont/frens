@@ -31,7 +31,6 @@ const optVars = {
 };
 
 export default function Pub({ data }) {
-  console.log('asd')
   //HOOKS
   data = JSON.parse(data);
   const { data: session, status } = useSession();
@@ -100,28 +99,28 @@ export default function Pub({ data }) {
             variants={optVars}
             className="absolute top-0 z-30 right-0 text-black p-2 w-[170px] rounded-lg shadow-md flex flex-col gap-1 items-center justify-center bg-white origin-top-right"
           >
-            {data.author === session?.user.name && (
-              <li
-                onClick={() => deletePub(data)}
-                className="cursor-pointer hover:bg-red-200 rounded w-full flex justify-between p-3"
-              >
-                <p className="font-bold text-md text-red-500">Eliminar</p>
-                {delLoader == true ? (
-                  <FaSpinner className="animate-spin" color="red" size={20} />
-                ) : (
-                  <FaDeleteLeft color="red" size={20} />
-                )}
-              </li>
-            )}
             <li className="w-full">
               <Link
                 href={`/pub?id=${data._id}`}
                 className="cursor-pointer hover:bg-slate-100 rounded w-full flex justify-between p-3"
-              >
+                >
                 <p className="font-bold text-md">Visitar</p>
                 <FaArrowRightFromBracket color="black" size={20} />
               </Link>
             </li>
+                {data.author === session?.user.name && (
+                  <li
+                    onClick={() => deletePub(data)}
+                    className="cursor-pointer hover:bg-red-200 rounded w-full flex justify-between p-3"
+                  >
+                    <p className="font-bold text-md text-red-500">Eliminar</p>
+                    {delLoader == true ? (
+                      <FaSpinner className="animate-spin" color="red" size={20} />
+                    ) : (
+                      <FaDeleteLeft color="red" size={20} />
+                    )}
+                  </li>
+                )}
             <li
               onClick={() => setOpts(false)}
               className="cursor-pointer hover:bg-slate-950 bg-slate-700 rounded w-full flex justify-center p-1"

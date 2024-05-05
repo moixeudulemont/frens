@@ -1,11 +1,12 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import { useEffect, useState } from "react";
 
 export default function Extras({ extras }) {
   //HOOKS
+  const anim = useAnimation();
   const [mobile, setMobile] = useState(false);
   useEffect(() => {
     if(window.innerWidth < 700) {
@@ -24,6 +25,7 @@ export default function Extras({ extras }) {
       <section className="overflow-x-hidden md:h-[550px] h-[400px] p-5 rounded-xl shadow-md backdrop-blur-md" style={{background: "linear-gradient(45deg, #f0f9, #ff09)"}}>
         <motion.div
           initial={{ x: "-100%" }}
+          onHoverStart={anim.stop()}
           animate={{
             x: [mobile ? "-1000%" : "-200%", "0%"],
             transition: {
