@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { signIn, useSession, signOut } from "next-auth/react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   FaPowerOff,
   FaAddressCard,
@@ -28,13 +28,6 @@ export default function Navbar() {
   const [dropdown, setDropdown] = useState(false);
   const params = usePathname();
   const router = useRouter();
-  useEffect(() => {
-    //VIDEO
-    const bgVideo = document.querySelector("#bgVideo");
-    bgVideo.addEventListener("canplay", function () {
-      bgVideo.play();
-    });
-  }, []);
   return (
     <nav
       className="h-[70px] z-[100] flex items-center md:px-10 px-7 justify-between backdrop-blur-sm shadow-md"

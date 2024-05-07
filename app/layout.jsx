@@ -34,13 +34,6 @@ export default function RootLayout({ children }) {
         ></script>
       </head>
       <body style={quicksand.style}>
-        <video
-          id="bgVideo"
-          src="https://res.cloudinary.com/andy-company/video/upload/v1714498186/bg_yjf9nj.mp4"
-          autoPlay
-          loop
-          muted
-        ></video>
         <Provider>
           <header className="sticky top-0 z-[61] mb-5">
             <Navbar />

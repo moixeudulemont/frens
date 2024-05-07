@@ -23,6 +23,11 @@ body {
   color: #fff;
   min-height: 100dvh;
   max-width: 100vw;
+  background: url("/bg.webp");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 #bgVideo {
