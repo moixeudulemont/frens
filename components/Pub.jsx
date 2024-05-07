@@ -32,7 +32,7 @@ const optVars = {
   transition: { duration: 1 },
 };
 
-export default function Pub({ data }) {
+export default function Pub({ data, type }) {
   //HOOKS
   data = JSON.parse(data);
   const { data: session, status } = useSession();
@@ -154,7 +154,7 @@ export default function Pub({ data }) {
           <h2 className="font-bold text-xl p-2 border-l-[6px] border-solid border-cyan-300">
             {data.title}
           </h2>
-          {data?.description && (
+          {(data?.description && type !== 'portada') && (
             <p className="mt-4 rounded-lg px-3">{data.description}</p>
           )}
         </div>

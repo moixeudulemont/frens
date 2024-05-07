@@ -19,7 +19,7 @@ export default function Portada() {
     >
       <h2 className="font-bold text-xl text-center">Portada del día</h2>
       <div className="m-h-[80dvh] overflow-y-auto">
-        <Pub data={JSON.stringify(daily)} />
+        <Pub data={JSON.stringify(daily)} type="portada"/>
       </div>
     </section>
   );
