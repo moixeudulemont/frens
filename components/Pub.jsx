@@ -70,10 +70,12 @@ export default function Pub({ data, type }) {
 
   return (
     <article
-      className="flex justify-center flex-col w-full backdrop-blur-lg shadow-lg rounded-lg"
+      className="flex justify-center flex-col w-full backdrop-blur-lg rounded-lg"
       style={{
         background:
-          "linear-gradient(-45deg, rgba(10,200,200,0.4), rgba(200,10,200,.4))",
+          "linear-gradient(-45deg, var(--primary), var(--secondary))",
+        border: "solid 1px var(--cuartary)",
+        boxShadow: "0 0 9px 2px var(--cuartary)"
       }}
     >
       <div className="flex items-center justify-between py-2 pl-2 pr-4 ">
@@ -148,7 +150,7 @@ export default function Pub({ data, type }) {
           className="py-4 px-2"
           style={{
             background:
-              "linear-gradient(45deg, orange, rgba(200,10,200,.4) 90%)",
+              "linear-gradient(45deg, var(--secondary), var(--primary) 90%)",
           }}
         >
           <h2 className="font-bold text-xl p-2 border-l-[6px] border-solid border-cyan-300">

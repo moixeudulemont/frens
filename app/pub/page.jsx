@@ -49,7 +49,7 @@ export default async function pub({ searchParams }) {
         <FaArrowLeft size={30} />
       </Link>
       <section className="w-full" style={{ flex: 1.5, height: "100%" }}>
-        <article className="md:min-h-[85dvh] shadow-lg w-full h-full p-4 backdrop-blur-lg rounded-lg bg-[rgba(255,255,255,0.1)] flex flex-col">
+        <article className="md:min-h-[85dvh] shadow-lg w-full h-full p-4 backdrop-blur-lg rounded-lg flex flex-col">
           {/* HEADER OF CARD */}
           <div className="flex justify-between items-center pb-2 mb-2">
             <div className="flex gap-3 items-center">
@@ -74,7 +74,7 @@ export default async function pub({ searchParams }) {
           </div>
           {/* BODY OF CARD */}
           <div className="flex-grow flex flex-col gap-2">
-            <h1 className="p-4 text-center bg-orange-400 text-xl font-bold rounded border-l-8 border-cyan-400 border-solid">
+            <h1 className="p-4 text-center bg-[var(--tertiary)] text-xl font-bold rounded border-l-8 border-cyan-400 border-solid">
               {pub.title}
             </h1>
             <div className="flex justify-center items-center flex-grow">
@@ -104,7 +104,7 @@ export default async function pub({ searchParams }) {
             </div>
           </div>
           {pub.description && (
-            <p className="mt-3 w-full p-4 rounded-lg bg-pink-400">
+            <p className="mt-3 w-full p-4 rounded-lg bg-[var(--secondary)]">
               {pub.description}
             </p>
           )}
@@ -112,7 +112,7 @@ export default async function pub({ searchParams }) {
       </section>
       {/* SOCIAL SECTION */}
       <section className="w-full" style={{ flex: 1 }}>
-        <article className="shadow-lg w-full h-full p-4 backdrop-blur-lg rounded-lg bg-[rgba(255,255,255,0.1)] flex-shrink flex flex-col items-center justify-between">
+        <article className="shadow-lg w-full h-full p-4 backdrop-blur-lg rounded-lg flex-shrink flex flex-col items-center justify-between">
           <h1 className="pb-4 md:pb-2 mb-2 text-2xl font-bold text-center border-b-4 border-cyan-500 border-solid">
             Comentarios
           </h1>

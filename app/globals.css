@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --primary: #ff00ff85;
+  --secondary: #0010ff63;
+  --tertiary: #fb3ce5;
+  --cuartary: #0ff;
+}
 
 ::-webkit-scrollbar {
   width: 5px;

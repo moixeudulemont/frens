@@ -31,7 +31,7 @@ export default function Navbar() {
   return (
     <nav
       className="h-[70px] z-[100] flex items-center md:px-10 px-7 justify-between backdrop-blur-sm shadow-md"
-      style={{ background: "linear-gradient(45deg, #f0f9, #ff09)" }}
+      style={{ background: "linear-gradient(45deg, var(--primary), var(--secondary))" }}
     >     
       <Link href="/home?page=1" className={`${lobster.className} flex items-center gap-4`}>
         <h1 className="text-2xl font-bold">frenss</h1>

@@ -12,8 +12,10 @@ export default function Portada() {
   return (
     <section
       style={{
-        background: "linear-gradient(45deg, #f0f9, #ff09)",
+        background: "linear-gradient(45deg, var(--primary), var(--secondary))",
         transition: "0.3s",
+        border: "solid 1px var(--cuartary)",
+        boxShadow: "0 0 9px 2px var(--cuartary)"
       }}
       className="max-h-[85dvh] overflow-y-auto h-[85dvh] w-full bg-slate-400 sticky z-[60] top-[90px] rounded-tl-lg rounded-bl-lg backdrop-blur-md shadow-md p-3 flex flex-col justify-center items-center gap-5"
     >

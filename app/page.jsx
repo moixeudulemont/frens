@@ -14,7 +14,9 @@ export default function Index() {
                         className='text-2xl font-[600]'
                     >Una sencilla página de noticias, chismes, capturas y muchas mas tonterías del chat, sean todos bienvenidos, espero que puedan disfrutar el contenido que aqui se presenta, no se lo tomen a mal, es solo para divertirse, muchas gracias y a disfrutar!</p>
                     <Link href="/home">
-                        <button className='mt-7 bg-orange-400 px-5 py-3 pointer font-[600]'>Visitar</button>
+                        <button 
+                        style={{background: 'var(--tertiary)'}}
+                        className='mt-7 px-5 py-3 pointer font-[600]'>Visitar</button>
                     </Link>
                 </div>
                 <div className="image hidden lg:block">
