@@ -34,8 +34,7 @@ export default function Filters({ url, users }) {
       <HiDocumentDuplicate size={27}/>
     </div>
     <section
-      style={{ background: "linear-gradient(45deg, var(--primary), var(--secondary))", transition: '0.3s', zIndex: 101, border: "solid 1px var(--cuartary)",
-      boxShadow: "0 0 9px 2px var(--cuartary)" }}
+      style={{ background: "linear-gradient(45deg, var(--primary), var(--secondary))", transition: '0.3s', zIndex: 101}}
       className={`md:h-[85dvh] h-[100dvh] top-0 w-full rounded-tr-lg rounded-br-lg md:sticky md:top-[90px] fixed backdrop-blur-md shadow-md ${status ? 'scale-100 opacity-100' : 'scale-0 opacity-0'} flex flex-col items-center gap-5 p-3`}
     >
       <div className="w-full flex items-center">

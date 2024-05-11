@@ -73,9 +73,7 @@ export default function Pub({ data, type }) {
       className="flex justify-center flex-col w-full backdrop-blur-lg rounded-lg"
       style={{
         background:
-          "linear-gradient(-45deg, var(--primary), var(--secondary))",
-        border: "solid 1px var(--cuartary)",
-        boxShadow: "0 0 9px 2px var(--cuartary)"
+          "linear-gradient(-45deg, var(--primary), var(--secondary))"
       }}
     >
       <div className="flex items-center justify-between py-2 pl-2 pr-4 ">
