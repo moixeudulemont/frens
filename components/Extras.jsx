@@ -2,20 +2,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useAnimation } from "framer-motion";
-import { useEffect, useState } from "react";
 
 export default function Extras({ extras }) {
   //HOOKS
   const anim = useAnimation();
-  const [mobile, setMobile] = useState(false);
-  useEffect(() => {
-    if(window.innerWidth < 700) {
-      setMobile(true);
-    } else {
-      setMobile(false);
-    }
-  }, [])
-  //INIT
   const extrasParsed = JSON.parse(extras);
   return (
     <>
@@ -27,10 +17,10 @@ export default function Extras({ extras }) {
           initial={{ x: "-100%" }}
           onHoverStart={anim.stop()}
           animate={{
-            x: [mobile ? "-1000%" : "-200%", "0%"],
+            x: "-3000px",
             transition: {
               ease: "linear",
-              duration: mobile ? 25 : 10,
+              duration: 30,
               repeat: Infinity,
             },
           }}
