@@ -11,8 +11,7 @@ import {
   FaRegComment,
   FaSpinner,
   FaArrowRightFromBracket,
-  FaDeleteLeft,
-  FaShareNodes,
+  FaDeleteLeft
 } from "react-icons/fa6";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
@@ -70,11 +69,7 @@ export default function Pub({ data, type }) {
 
   return (
     <article
-      className="flex justify-center flex-col w-full backdrop-blur-lg rounded-lg"
-      style={{
-        background:
-          "linear-gradient(-45deg, var(--primary), var(--secondary))"
-      }}
+      className={`flex justify-center flex-col w-full backdrop-blur-lg rounded-lg bg-[#0005] ${type == 'portada' ? '' : 'ring-2 ring-white'}`}
     >
       <div className="flex items-center justify-between py-2 pl-2 pr-4 ">
         <div className="flex gap-3 items-center">
@@ -145,17 +140,13 @@ export default function Pub({ data, type }) {
       <div id="body">
         <div
           id="contentTxt"
-          className="py-4 px-2"
-          style={{
-            background:
-              "linear-gradient(45deg, var(--secondary), var(--primary) 90%)",
-          }}
+          className="py-4 px-2 bg-[#4207]"
         >
           <h2 className="font-bold text-xl p-2 border-l-[6px] border-solid border-cyan-300">
             {data.title}
           </h2>
           {(data?.description && type !== 'portada') && (
-            <p className="mt-4 rounded-lg px-3">{data.description}</p>
+            <p className="mt-4 rounded-lg px-3 font-bold text-slate-200">{data.description}</p>
           )}
         </div>
         {data?.image && (

@@ -8,7 +8,7 @@ import { HiDocumentDuplicate } from "react-icons/hi";
 //IF SELECTED CHANGE BACKGROUND
 function changeBG(url, name) {
   if (url == name) return `rgba(0,0,0)`;
-  return "linear-gradient(-45deg, var(--secondary), var(--primary))";
+  return "#4207";
 }
 function disableClick(url, name) {
   if (url == name) return 'pointer-events-none';
@@ -34,8 +34,8 @@ export default function Filters({ url, users }) {
       <HiDocumentDuplicate size={27}/>
     </div>
     <section
-      style={{ background: "linear-gradient(45deg, var(--primary), var(--secondary))", transition: '0.3s', zIndex: 101}}
-      className={`md:h-[85dvh] h-[100dvh] top-0 w-full rounded-tr-lg rounded-br-lg md:sticky md:top-[90px] fixed backdrop-blur-md shadow-md ${status ? 'scale-100 opacity-100' : 'scale-0 opacity-0'} flex flex-col items-center gap-5 p-3`}
+      style={{ transition: '0.3s', zIndex: 101}}
+      className={`ring-2 ring-white md:h-[85dvh] h-[100dvh] top-0 w-full rounded-tr-lg rounded-br-lg md:sticky md:top-[90px] fixed backdrop-blur-md shadow-md ${status ? 'scale-100 opacity-100' : 'scale-0 opacity-0'} flex flex-col items-center gap-5 p-3`}
     >
       <div className="w-full flex items-center">
         <h1 className="font-bold text-xl text-center translate-x-3 md:translate-x-0" style={{flex: 2}}>Páginas</h1>
@@ -70,7 +70,7 @@ export default function Filters({ url, users }) {
                   transition: "0.4s",
                 }}
                 key={key}
-                className={`flex md:flex-row flex-col items-center justify-between p-5 rounded-lg bg-slate-300 shadow-md w-full cursor-pointer hover:scale-105 ${disableClick(url, item.name)}`}
+                className={`ring-1 ring-slate-200 flex md:flex-row flex-col items-center justify-between p-5 rounded-lg bg-slate-300 shadow-md w-full cursor-pointer hover:scale-105 ${disableClick(url, item.name)}`}
               >
                 <img
                   src={item.image}

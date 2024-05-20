@@ -20,7 +20,7 @@ export default function Extras({ extras }) {
             x: "-3000px",
             transition: {
               ease: "linear",
-              duration: 30,
+              duration: 30 ,
               repeat: Infinity,
             },
           }}
