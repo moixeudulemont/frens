@@ -30,7 +30,7 @@ export default function Navbar() {
   const router = useRouter();
   return (
     <nav
-      className="h-[70px] z-[100] flex items-center md:px-10 px-7 justify-between backdrop-blur-md shadow-md"
+      className="h-[70px] z-[100] flex items-center md:px-10 px-4 justify-between backdrop-blur-md shadow-md"
     >     
       <Link href="/home?page=1" className={`${lobster.className} flex items-center gap-4`}>
         <h1 className="text-2xl font-bold">frenss</h1>

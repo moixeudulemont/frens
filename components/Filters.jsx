@@ -30,7 +30,7 @@ export default function Filters({ url, users }) {
   }, []);
   return (
     <>
-    <div onClick={() => setStatus(true)} className="md:hidden fixed w-[45px] h-[45px] flex justify-center items-center rounded-full bg-indigo-600 shadow-lg cursor-pointer bottom-[35px] right-[25px] z-50">
+    <div onClick={() => setStatus(true)} className="md:hidden fixed w-[45px] h-[45px] flex justify-center items-center rounded-full bg-amber-600 shadow-lg cursor-pointer bottom-[35px] right-[25px] z-50">
       <HiDocumentDuplicate size={27}/>
     </div>
     <section

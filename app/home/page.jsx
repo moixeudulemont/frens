@@ -95,7 +95,7 @@ export default async function Home({ searchParams }) {
   const x = renderPubs();
 
   return (
-    <main>
+    <main className="px-2">
       {authorPage !== 'all' ? (
         <h1 className="text-center text-2xl font-bold my-5 bg-amber-500 py-2 shadow-md">{authorPage}</h1>
       ) : ''}
