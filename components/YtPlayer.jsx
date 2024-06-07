@@ -11,8 +11,8 @@ export default function YtPlayer({ link }) {
       {state ? (
         <iframe
           className="w-full h-[500px]"
-          src={`https://youtube.com/embed/${link}?autoplay=1&mute=1`}
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; web-share"
+          src={`https://youtube.com/embed/${link}`}
+          allow="accelerometer; clipboard-write; encrypted-media; gyroscope; web-share"
           allowFullScreen={true}
           loading="lazy"
         ></iframe>
