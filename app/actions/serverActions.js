@@ -2,8 +2,6 @@
 
 import { db } from '@/lib/db';
 import Pubs from '@/lib/models/pubs';
-import { GSP_NO_RETURNED_VALUE } from 'next/dist/lib/constants';
-
 
 export async function like(status, liker, id) {
     if(status !== 'authenticated') return;

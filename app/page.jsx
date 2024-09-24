@@ -13,9 +13,13 @@ export default function Index() {
                     <p
                         className='text-2xl font-[600]'
                     >Una sencilla página de noticias, chismes, capturas y muchas mas tonterías del chat, sean todos bienvenidos, espero que puedan disfrutar el contenido que aqui se presenta, no se lo tomen a mal, es solo para divertirse, muchas gracias y a disfrutar!</p>
+                    <a href="https://frensgo.lat" target="_blank">
+                        <button 
+                        className='mt-7 mr-4 px-5 py-3 pointer font-[600] text-white bg-black'>Frens go</button>
+                    </a>
                     <Link href="/home">
                         <button 
-                        className='mt-7 px-5 py-3 pointer font-[600] bg-amber-600'>Visitar</button>
+                        className='mt-7 px-5 py-3 pointer font-[600] text-black bg-yellow-300'>Visitar</button>
                     </Link>
                 </div>
                 <div className="image hidden lg:block">

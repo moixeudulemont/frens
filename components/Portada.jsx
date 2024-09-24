@@ -14,9 +14,10 @@ export default function Portada() {
       style={{
         transition: "0.3s"
       }}
-      className="ring-2 ring-white max-h-[85dvh] overflow-y-auto h-[85dvh] w-full sticky z-[60] top-[90px] rounded-tl-lg rounded-bl-lg backdrop-blur-md shadow-md p-3 flex flex-col justify-center items-center gap-5"
+      className="max-h-[85dvh] overflow-y-auto h-[85dvh] w-full sticky z-[60] top-[90px] rounded-tl-lg rounded-bl-lg backdrop-blur-md shadow-lg p-3 flex flex-col justify-center items-center gap-5"
     >
-      <h2 className="font-bold text-xl text-center">Portada del día</h2>
+      <h2
+        className="font-bold text-xl text-center rounded-md">Portada del día</h2>
       <div className="m-h-[80dvh] overflow-y-auto">
         <Pub data={JSON.stringify(daily)} type="portada"/>
       </div>
