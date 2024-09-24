@@ -69,6 +69,7 @@ export default function Pub({ data, type }) {
 
   return (
     <article
+      style={{borderTop: '5px solid yellow'}}
       className={`flex justify-center flex-col w-full backdrop-blur-lg rounded-lg bg-[#0001] shadow-lg`}
     >
       <div className="flex items-center justify-between py-2 pl-2 pr-4 ">
