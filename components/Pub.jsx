@@ -69,7 +69,7 @@ export default function Pub({ data, type }) {
 
   return (
     <article
-      style={{borderTop: '5px solid yellow'}}
+      style={{background: 'linear-gradient(-45deg, rgba(255, 0, 255, 0.6), rgba(255, 255, 0, 0.6))'}}
       className={`flex justify-center flex-col w-full backdrop-blur-lg rounded-lg bg-[#0001] shadow-lg`}
     >
       <div className="flex items-center justify-between py-2 pl-2 pr-4 ">
@@ -141,9 +141,10 @@ export default function Pub({ data, type }) {
       <div id="body">
         <div
           id="contentTxt"
-          className="py-4 px-2 bg-[#0002]"
+          className="py-4 px-2"
+          style={{background: 'linear-gradient(45deg, rgba(255, 0, 255, 0.6), rgba(255, 255, 0, 0.6))'}}
         >
-          <h2 className="font-bold text-xl p-2 border-l-[6px] border-solid border-yellow-300">
+          <h2 className="font-bold text-xl p-2 border-l-[6px] border-solid border-cyan-300">
             {data.title}
           </h2>
           {(data?.description && type !== 'portada') && (
@@ -237,7 +238,7 @@ export default function Pub({ data, type }) {
                       <p className="text-sm">{moment(elem.date).fromNow()}</p>
                     </div>
                   </div>
-                  <p className="font-bold p-3 rounded-lg bg-[rgba(82,82,82,0.35)] break-all">
+                  <p className="font-bold p-3 rounded-lg bg-[#fff3] break-all">
                     {elem.msg}
                   </p>
                 </div>
