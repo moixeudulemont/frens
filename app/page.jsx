@@ -1,4 +1,4 @@
-import Image from 'next/image';
+
 import Link from 'next/link';
 import { Lobster } from 'next/font/google';
 
@@ -23,12 +23,10 @@ export default function Index() {
                     </Link>
                 </div>
                 <div className="image hidden lg:block">
-                    <Image 
+                    <img
                         src="/pic.png"
-                        width={1366}
-                        height={768}
                         alt="pic"
-                        priority
+                        priority="true"
                     />
                 </div>
             </section>

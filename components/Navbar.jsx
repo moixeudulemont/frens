@@ -4,7 +4,6 @@ import { Lobster } from "next/font/google";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { signIn, useSession, signOut } from "next-auth/react";
-import Image from "next/image";
 import { useState } from "react";
 import {
   FaPowerOff,
@@ -39,12 +38,10 @@ export default function Navbar() {
       {status === "authenticated" ? (
         <ul className="flex justify-center items-center gap-5">
           <li className="relative flex items-center gap-4">
-            <Image
+            <img
               onClick={() => setDropdown(!dropdown)}
-              className="rounded-full cursor-pointer shadow"
+              className="rounded-full cursor-pointer shadow w-12 h-12"
               src={session?.user.image}
-              width={45}
-              height={45}
               alt="avatar"
             />
             <motion.div

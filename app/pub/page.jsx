@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { db } from "@/lib/db";
 import Pubs from "@/lib/models/pubs";
-import Image from "next/image";
 import moment from "moment";
 import "moment/locale/es";
 import CommentsForm from "@/components/ComentsForm";
@@ -53,12 +52,10 @@ export default async function pub({ searchParams }) {
           {/* HEADER OF CARD */}
           <div className="flex justify-between items-center pb-2 mb-2">
             <div className="flex gap-3 items-center">
-              <Image
+              <img
                 src={pub.avatar}
                 alt="author avatar"
-                width={40}
-                height={40}
-                className="rounded-full shadow"
+                className="rounded-full shadow w-10 h-10"
               />
               <div>
                 <h2 className="text-lg font-bold">{pub.author}</h2>
@@ -92,10 +89,8 @@ export default async function pub({ searchParams }) {
               )}
               {pub.image && (
                 <div className="w-full h-full">
-                  <Image
+                  <img
                     src={pub.image}
-                    width={700}
-                    height={700}
                     alt="Image of pub"
                     className="w-full h-full rounded-lg shadow-md mt-1"
                   />
@@ -134,12 +129,10 @@ export default async function pub({ searchParams }) {
                 >
                   {/* HEADER */}
                   <div className="mb-2 flex items-center gap-3">
-                    <Image
+                    <img
                       src={elem.avatar}
-                      width={35}
-                      height={35}
                       alt="author avatar"
-                      className="rounded-full shadow m-h-[90dvh]"
+                      className="rounded-full shadow w-10 h-10"
                     />
                     <div>
                       <h2 className="text-md font-bold">{elem.author}</h2>

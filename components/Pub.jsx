@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import moment from "moment";
 import "moment/locale/es";
@@ -75,10 +74,8 @@ export default function Pub({ data, type }) {
       <div className="flex items-center justify-between py-2 pl-2 pr-4 ">
         <div className="flex gap-3 items-center">
           <div className="md:w-[50px] md:h-[50px] w-[35px] h-[35px]">
-            <Image
+            <img
               src={data.avatar}
-              width={50}
-              height={50}
               className="rounded-full"
               alt="avatar user"
             />
@@ -153,11 +150,9 @@ export default function Pub({ data, type }) {
         </div>
         {data?.image && (
           <div className="w-full">
-            <Image
+            <img
               alt="imagen linda"
               src={data.image}
-              width={720}
-              height={720}
               className="w-full h-auto"
             />
           </div>
@@ -226,12 +221,10 @@ export default function Pub({ data, type }) {
               data.comments.reverse().map((elem, key) => (
                 <div key={key} className="py-2 my-2 flex flex-col gap-3">
                   <div className="flex gap-4 items-center">
-                    <Image
+                    <img
                       src={elem.avatar}
-                      width={35}
-                      height={35}
                       alt="avatar author"
-                      className="rounded-full"
+                      className="rounded-full w-10 h-10"
                     />
                     <div>
                       <p className="text-md font-bold">{elem.author}</p>

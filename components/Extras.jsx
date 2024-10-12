@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import Link from "next/link";
 import { motion, useAnimation } from "framer-motion";
 
@@ -35,11 +34,9 @@ export default function Extras({ extras }) {
                   style={{ flex: "0 0 300px" }}
                 >
                   <Link href={`/pub?id=${elem._id}`}>
-                    <Image
+                    <img
                       className="h-full w-full rounded-xl object-cover"
                       src={elem.image}
-                      width={720}
-                      height={400}
                       alt={elem.title}
                     />
                   </Link>
