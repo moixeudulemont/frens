@@ -34,7 +34,7 @@ export default function Navbar() {
   setTimeout(async () => {
     const x = await getAvatar(session?.user?.email);
     setAvatar(x);
-  }, 500);
+  }, 3000);
 
   return (
     <nav
