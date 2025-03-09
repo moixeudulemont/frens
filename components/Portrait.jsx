@@ -14,8 +14,6 @@ export default function Portrait({portrait, avatar, author}) {
   const { data: session, status } = useSession();
   const router = useRouter();
 
-  console.log(portrait)
-
   function filters(e) {
     if(status !== 'authenticated') return false;
     if(!e.target.files) return false;
