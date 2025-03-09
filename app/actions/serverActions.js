@@ -2,6 +2,22 @@
 
 import { db } from '@/lib/db';
 import Pubs from '@/lib/models/pubs';
+import Users from '@/lib/models/users';
+import { v2 as cloudinary } from "cloudinary";
+import { getServerSession } from "next-auth";
+
+//CLOUDYNARI CREDENTIALS
+cloudinary.config({
+    cloud_name: "andy-company",
+    api_key: process.env.CLOUDINARY_KEY,
+    api_secret: process.env.CLOUDINARY_SECRET,
+});
+
+function filterFiles(x) {
+    if (x.size > 4000000) return false;
+    if(!/^image/.test(x.type)) return false;
+    return true;
+}
 
 export async function like(status, liker, id) {
     if(status !== 'authenticated') return;
@@ -13,7 +29,7 @@ export async function like(status, liker, id) {
     //SET LIKE
     if(likes.length == 0){
         await Pubs.findByIdAndUpdate(id, { $push: {likes: {author: liker}} });
-        return 'OK';
+        return 'BAD';
     } 
     
     const check = likes.filter(x => x.author == liker);
@@ -22,7 +38,71 @@ export async function like(status, liker, id) {
         return;
     } else {
         await Pubs.findByIdAndUpdate(id, { $push: {likes: {author: liker}} });
-        return 'OK';
+        return 'BAD';
     }
     
+}
+
+export async function changePortrait(data) {
+    //SECURE AUTH
+    const { user } = await getServerSession();
+    if(user.email !== data.get('email')) return 'BAD';
+    
+    const file = data.get('file');
+    const email = data.get('email');
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = new Uint8Array(arrayBuffer);
+    //FILTER FILES
+    if(!filterFiles(file)) return 'BAD';
+
+    const url = await new Promise((resolve, reject) => {
+              cloudinary.uploader
+                .upload_stream({}, (err, res) => {
+                  if (err) return reject(err);
+                  if (res) return resolve(res.secure_url);
+                })
+                .end(buffer);
+    });
+
+    await Users.findOneAndUpdate({email: email}, {portrait: url});
+
+    return 'OK';
+    
+}
+
+export async function changeAvatar(data) {
+    //SECURE AUTH
+    const { user } = await getServerSession();
+    if(user.email !== data.get('email')) return 'BAD';
+
+    const file = data.get('file');
+    const email = data.get('email');
+    const author = data.get('author');
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = new Uint8Array(arrayBuffer);
+    //FILTER FILES
+    if(!filterFiles(file)) return 'BAD';
+
+    const url = await new Promise((resolve, reject) => {
+          cloudinary.uploader
+            .upload_stream({}, (err, res) => {
+              if (err) return reject(err);
+              if (res) return resolve(res.secure_url);
+            })
+            .end(buffer);
+    });
+
+    await Users.findOneAndUpdate({email: email}, {image: url});
+
+    //UPDATE AVATAR FROM ALL PUBS
+    await Pubs.updateMany({author: author}, {avatar: url});
+    
+    return 'OK';
+}
+
+export async function getAvatar(email) {
+    await db();
+    const x = await Users.findOne({email: email});
+    if (!x) return null;
+    return x['image'];
 }

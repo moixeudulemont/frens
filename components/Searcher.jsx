@@ -7,6 +7,7 @@ import { useState } from "react";
 export default function Searcher() {
   const router = useRouter();
   const [pattern, setPattern] = useState("");
+  const [loader, setLoader] = useState(false);
 
   function search(e) {
     e.preventDefault();
@@ -18,6 +19,7 @@ export default function Searcher() {
       onSubmit={search}
       className="relative flex items-center justify-center"
     >
+      {loader && <Loader />}
       <input
         className="md:py-2 px-4 py-1 rounded-full md:w-[35vw] w-[50vw] bg-[rgba(200,150,0,0.24)] placeholder-white border-2 border-solid border-white focus:outline-none"
         type="search"

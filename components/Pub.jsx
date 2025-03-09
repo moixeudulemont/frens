@@ -76,8 +76,9 @@ export default function Pub({ data, type }) {
           <div className="md:w-[50px] md:h-[50px] w-[35px] h-[35px]">
             <img
               src={data.avatar}
-              className="rounded-full"
+              className="rounded-full cursor-pointer"
               alt="avatar user"
+              onClick={() => router.push(`/home?author=${data.author}`)}
             />
           </div>
           <div className="flex flex-col">

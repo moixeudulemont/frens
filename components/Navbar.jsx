@@ -4,14 +4,16 @@ import { Lobster } from "next/font/google";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { signIn, useSession, signOut } from "next-auth/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   FaPowerOff,
   FaAddressCard,
-  FaHouse
+  FaHouse,
+  FaUser,
 } from "react-icons/fa6";
 import Searcher from "@/components/Searcher";
 import { motion } from "framer-motion";
+import { getAvatar } from '@/app/actions/serverActions';
 
 //VARIANTS FOR DROPDOWN
 const variants = {
@@ -25,8 +27,15 @@ const lobster = Lobster({ subsets: ["latin"], weight: ["400"] });
 export default function Navbar() {
   const { data: session, status } = useSession();
   const [dropdown, setDropdown] = useState(false);
+  const [avatar, setAvatar] = useState('');
   const params = usePathname();
   const router = useRouter();
+
+  setTimeout(async () => {
+    const x = await getAvatar(session?.user?.email);
+    setAvatar(x);
+  }, 3000);
+
   return (
     <nav
       className="h-[70px] z-[100] flex items-center md:px-10 px-4 justify-between backdrop-blur-md shadow-md"
@@ -41,7 +50,7 @@ export default function Navbar() {
             <img
               onClick={() => setDropdown(!dropdown)}
               className="rounded-full cursor-pointer shadow w-12 h-12"
-              src={session?.user.image}
+              src={avatar}
               alt="avatar"
             />
             <motion.div
@@ -82,6 +91,16 @@ export default function Navbar() {
                 >
                   <p className="text-black font-bold text-lg">Log out</p>
                   <FaPowerOff color="black" size={20} />
+                </li>
+                <li
+                  onClick={() => {
+                    router.push(`/home?author=${session.user.name}`);
+                    setDropdown(false);
+                  }}
+                  className="flex justify-between items-center rounded bg-slate-100 px-4 py-2 cursor-pointer hover:bg-slate-300"
+                >
+                  <p className="text-black font-bold text-lg">Mi perfil</p>
+                  <FaUser color="black" size={20} />
                 </li>
               </ul>
             </motion.div>

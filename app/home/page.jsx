@@ -6,6 +6,7 @@ import Pagination from "@/components/Pagination";
 import Extras from "@/components/Extras";
 import Filters from "@/components/Filters";
 import Portada from "@/components/Portada";
+import Portrait from "@/components/Portrait";
 
 export const metadata = {
   title: "frens - home",
@@ -47,6 +48,11 @@ async function getData(page, search, author) {
 //GET EXTRAS
 async function extrasPublications() {
   return await Pubs.aggregate([{ $sample: { size: 10 } }]);
+}
+
+//GET USER
+function getUser(author) {
+  return users.filter(x => x.name === author);
 }
 
 //INIT
@@ -97,7 +103,10 @@ export default async function Home({ searchParams }) {
   return (
     <main className="px-2">
       {authorPage !== 'all' ? (
+        <>
         <h1 className="text-center text-2xl font-bold my-5 bg-amber-500 py-2 shadow-md">{authorPage}</h1>
+        <Portrait portrait={getUser(authorPage)[0].portrait} avatar={getUser(authorPage)[0].image} author={authorPage}/>
+        </>
       ) : ''}
       <section className="flex md:gap-5 mb-5">
         <div id="filters" className="md:w-3/12 w-12/12">
