@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import Pubs from "@/lib/models/pubs";
 import { getServerSession } from "next-auth";
 import { Types } from "mongoose";
+import Users from "@/lib/models/users";
 
 //Web Push Notifications
 async function webPushNotif(title, imgSrc, desc = '') {
@@ -61,6 +62,7 @@ export const POST = async (req) => {
   const type = searchParams.get("type");
   const data = await req.formData();
   await db();
+  const { image: imgDB } = await Users.findOne({email: user.email}, {image: 1, _id: 0});
 
   //SWITCH TYPE
   switch (type) {
@@ -70,7 +72,7 @@ export const POST = async (req) => {
         NextResponse.json({ err: "EMPTY" });
       await Pubs.create({
         author: user.name,
-        avatar: user.image,
+        avatar: imgDB,
         title: data.get("title").trim(),
         description: data.get("description").trim(),
       });
@@ -111,7 +113,7 @@ export const POST = async (req) => {
         //SAVE PUB TO DB
         await Pubs.create({
           author: user.name,
-          avatar: user.image,
+          avatar: imgDB,
           title: data.get("title").trim(),
           description: data.get("description").trim(),
           image: url,
@@ -132,7 +134,7 @@ export const POST = async (req) => {
       //SAVE TO DB
       await Pubs.create({
         author: user.name,
-        avatar: user.image,
+        avatar: imgDB,
         title: data.get("title").trim(),
         yt: yt_id,
       });
@@ -173,7 +175,7 @@ export const POST = async (req) => {
         //SAVE PUB TO DB
         await Pubs.create({
           author: user.name,
-          avatar: user.image,
+          avatar: imgDB,
           title: data.get("title").trim(),
           description: data.get("description").trim(),
           audio: url,
