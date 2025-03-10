@@ -40,6 +40,22 @@ export default function Pub({ data, type }) {
   const [delLoader, setDelLoader] = useState(false);
   const [likes, setLikes] = useState(data.likes.length);
   const [likesDissable, setLikesDissable] = useState(false);
+  //HELPERS
+  //FILTER MSGS TYPE
+  function filterMsg(msg) {
+    if(/.*\.(jpg|gif|png|jpeg|tiff|heif|bmp|webp)$/i.test(msg)) {
+      return (
+        <img src={msg} alt="comentario con imagen" className="max max-w-[450px] max-h-[720px] rounded-lg shadow-md"/>
+      )
+    } else {
+      return (
+        <p className="font-bold p-3 rounded-lg bg-[#fff3] break-word">
+          {msg}
+        </p>
+      )
+    }
+    return msg;
+  }
   //INIT
   async function deletePub(data) {
     if (data.author !== session.user.name) return;
@@ -219,24 +235,24 @@ export default function Pub({ data, type }) {
                 No hay comentarios
               </h4>
             ) : (
-              data.comments.reverse().map((elem, key) => (
-                <div key={key} className="py-2 my-2 flex flex-col gap-3">
-                  <div className="flex gap-4 items-center">
-                    <img
-                      src={elem.avatar}
-                      alt="avatar author"
-                      className="rounded-full w-10 h-10"
-                    />
-                    <div>
-                      <p className="text-md font-bold">{elem.author}</p>
-                      <p className="text-sm">{moment(elem.date).fromNow()}</p>
+              data.comments.reverse().map((elem, key) => {
+                return ((
+                  <div key={key} className="py-2 my-2 flex flex-col gap-3">
+                    <div className="flex gap-4 items-center">
+                      <img
+                        src={elem.avatar}
+                        alt="avatar author"
+                        className="rounded-full w-10 h-10"
+                      />
+                      <div>
+                        <p className="text-md font-bold">{elem.author}</p>
+                        <p className="text-sm">{moment(elem.date).fromNow()}</p>
+                      </div>
                     </div>
+                    {filterMsg(elem.msg)}
                   </div>
-                  <p className="font-bold p-3 rounded-lg bg-[#fff3] break-all">
-                    {elem.msg}
-                  </p>
-                </div>
-              ))
+                ))
+              })
             )}
           </div>
           <div className="px-6 pb-4">

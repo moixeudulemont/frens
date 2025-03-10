@@ -4,7 +4,7 @@ import { Lobster } from "next/font/google";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { signIn, useSession, signOut } from "next-auth/react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   FaPowerOff,
   FaAddressCard,
@@ -13,7 +13,6 @@ import {
 } from "react-icons/fa6";
 import Searcher from "@/components/Searcher";
 import { motion } from "framer-motion";
-import { getAvatar } from '@/app/actions/serverActions';
 
 //VARIANTS FOR DROPDOWN
 const variants = {
@@ -32,8 +31,12 @@ export default function Navbar() {
   const router = useRouter();
 
   setTimeout(async () => {
-    const x = await getAvatar(session?.user?.email);
-    setAvatar(x);
+    if(!session?.user?.name) return;
+    const x = await fetch(`/api/getavatar?name=${session?.user?.name}`);
+    if(!x.ok) return;
+    const res = await x.text();
+    if(!res) return;
+    setAvatar(res);
   }, 3000);
 
   return (
@@ -47,12 +50,14 @@ export default function Navbar() {
       {status === "authenticated" ? (
         <ul className="flex justify-center items-center gap-5">
           <li className="relative flex items-center gap-4">
-            <img
-              onClick={() => setDropdown(!dropdown)}
-              className="rounded-full cursor-pointer shadow w-12 h-12"
-              src={avatar}
-              alt="avatar"
-            />
+            {!avatar ? <FaUser /> : (
+              <img
+                onClick={() => setDropdown(!dropdown)}
+                className="rounded-full cursor-pointer shadow w-12 h-12"
+                src={avatar}
+                alt="avatar"
+              />
+            )}
             <motion.div
               initial={{ scale: 0 }}
               animate={dropdown ? "visible" : "hidden"}

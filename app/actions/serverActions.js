@@ -99,10 +99,3 @@ export async function changeAvatar(data) {
     
     return 'OK';
 }
-
-export async function getAvatar(email) {
-    await db();
-    const x = await Users.findOne({email: email});
-    if (!x) return null;
-    return x['image'];
-}
