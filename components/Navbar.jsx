@@ -31,8 +31,8 @@ export default function Navbar() {
   const router = useRouter();
 
   setTimeout(async () => {
-    if(!session?.user?.name) return;
-    const x = await fetch(`/api/getavatar?name=${session?.user?.name}`);
+    if(!session?.user?.email) return;
+    const x = await fetch(`/api/getavatar?email=${session?.user?.email}`);
     if(!x.ok) return;
     const res = await x.text();
     if(!res) return;

@@ -52,7 +52,9 @@ async function extrasPublications() {
 
 //GET USER
 function getUser(author) {
-  return users.filter(x => x.name === author);
+  const x = users.filter(x => x.name === author);
+  if(!x || x.length == 0) return;
+  return x[0];
 }
 
 //INIT
@@ -105,7 +107,7 @@ export default async function Home({ searchParams }) {
       {authorPage !== 'all' ? (
         <>
         <h1 className="text-center text-2xl font-bold my-5 bg-amber-500 py-2 shadow-md">{authorPage}</h1>
-        <Portrait portrait={getUser(authorPage)[0].portrait} avatar={getUser(authorPage)[0].image} author={authorPage}/>
+        <Portrait portrait={getUser(authorPage)?.portrait} avatar={getUser(authorPage)?.image} author={authorPage}/>
         </>
       ) : ''}
       <section className="flex md:gap-5 mb-5">

@@ -35,10 +35,10 @@ export async function like(status, liker, id) {
     const check = likes.filter(x => x.author == liker);
 
     if(check.length !== 0) {
-        return;
+        return 'EXISTS';
     } else {
         await Pubs.findByIdAndUpdate(id, { $push: {likes: {author: liker}} });
-        return 'BAD';
+        return 'OK';
     }
     
 }

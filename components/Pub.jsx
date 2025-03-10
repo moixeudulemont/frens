@@ -54,7 +54,6 @@ export default function Pub({ data, type }) {
         </p>
       )
     }
-    return msg;
   }
   //INIT
   async function deletePub(data) {
@@ -188,8 +187,8 @@ export default function Pub({ data, type }) {
           <FaRegThumbsUp
             onClick={async () => {
               if (likesDissable) return;
-              const res = await like(status, session.user.name, data._id);
-              if (res === "OK") {
+              const res = await like(status, session?.user?.name, data._id);
+              if(res == 'OK') {
                 setLikes(likes + 1);
               } else {
                 setLikesDissable(true);
@@ -229,7 +228,7 @@ export default function Pub({ data, type }) {
           variants={optVars}
           animate={comment ? "visible" : "hidden"}
         >
-          <div className="px-6">
+          <div className="px-6 max-h-[720px] overflow-x-hidden overflow-y-auto">
             {data?.comments.length == 0 ? (
               <h4 className="font-bold text-xl text-center py-2">
                 No hay comentarios
