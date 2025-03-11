@@ -40,6 +40,7 @@ export default function Pub({ data, type }) {
   const [delLoader, setDelLoader] = useState(false);
   const [likes, setLikes] = useState(data.likes.length);
   const [likesDissable, setLikesDissable] = useState(false);
+
   //HELPERS
   //FILTER MSGS TYPE
   function filterMsg(msg) {
@@ -241,7 +242,8 @@ export default function Pub({ data, type }) {
                       <img
                         src={elem.avatar}
                         alt="avatar author"
-                        className="rounded-full w-10 h-10"
+                        className="rounded-full w-10 h-10 cursor-pointer"
+                        onClick={() => router.push(`/home?author=${elem.author}`)}
                       />
                       <div>
                         <p className="text-md font-bold">{elem.author}</p>
