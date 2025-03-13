@@ -145,7 +145,7 @@ export const POST = async (req) => {
     case "audio": {
       //FILTER AUDIO FILE
       function filter(file) {
-        if (file.size > 15000000) {
+        if (file.size > 25000000) {
           return NextResponse.json({ err: "BIG" });
         }
         if (
