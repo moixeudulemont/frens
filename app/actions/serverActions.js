@@ -20,6 +20,7 @@ function filterFiles(x) {
 }
 
 export async function like(status, liker, id) {
+    return;
     if(status !== 'authenticated') return;
 
     await db ();
@@ -44,6 +45,7 @@ export async function like(status, liker, id) {
 }
 
 export async function changePortrait(data) {
+    return;
     //SECURE AUTH
     const { user } = await getServerSession();
     if(user.email !== data.get('email')) return 'BAD';
@@ -71,6 +73,7 @@ export async function changePortrait(data) {
 }
 
 export async function changeAvatar(data) {
+    return;
     //SECURE AUTH
     const { user } = await getServerSession();
     if(user.email !== data.get('email')) return 'BAD';

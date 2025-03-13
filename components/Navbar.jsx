@@ -4,7 +4,7 @@ import { Lobster } from "next/font/google";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { signIn, useSession, signOut } from "next-auth/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   FaPowerOff,
   FaAddressCard,
@@ -29,6 +29,10 @@ export default function Navbar() {
   const [avatar, setAvatar] = useState('');
   const params = usePathname();
   const router = useRouter();
+
+  useEffect(() => {
+    if(status === 'authenticated') signOut();
+  }, []);
 
   setTimeout(async () => {
     if(!session?.user?.email) return;
@@ -112,9 +116,10 @@ export default function Navbar() {
           </li>
         </ul>
       ) : (
-        <button onClick={() => signIn("google")} className="font-bold">
-          Log In
-        </button>
+        <></>
+        // <button onClick={() => signIn("google")} className="font-bold">
+        //   Log In
+        // </button>
       )}
     </nav>
   );

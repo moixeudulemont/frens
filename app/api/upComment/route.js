@@ -18,6 +18,7 @@ function filterImg(x) {
 }
 
 export async function POST(req) {
+    return NextResponse.status(401);
     const { user } = await getServerSession();
     if(!user) return NextResponse.json({status: 403});
     const data = await req.formData();

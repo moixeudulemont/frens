@@ -12,6 +12,7 @@ const handler = NextAuth({
     ],
     callbacks: {
         async signIn({profile}){
+            return false;
             if(!profile.email) return false;
             await db();
             //IF EXISTS
