@@ -40,7 +40,10 @@ export default function Portrait({portrait, avatar, author}) {
     switch(type) {
       case 'A':
         const x = await changeAvatar(form);
-        if(x === 'OK') router.refresh();
+        if(x != 'BAD') {
+          localStorage.setItem('avatar', x);
+          router.refresh();
+        }
         setLoader(false);
         break;
       case 'P':

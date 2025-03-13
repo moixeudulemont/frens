@@ -4,7 +4,7 @@ import { Lobster } from "next/font/google";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { signIn, useSession, signOut } from "next-auth/react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   FaPowerOff,
   FaAddressCard,
@@ -30,16 +30,17 @@ export default function Navbar() {
   const params = usePathname();
   const router = useRouter();
 
-  useEffect(() => {
-    if(status === 'authenticated') signOut();
-  }, []);
-
   setTimeout(async () => {
     if(!session?.user?.email) return;
+    if(localStorage.getItem('avatar')) {
+      setAvatar(localStorage.getItem('avatar'));
+      return;
+    }
     const x = await fetch(`/api/getavatar?email=${session?.user?.email}`);
     if(!x.ok) return;
     const res = await x.text();
     if(!res) return;
+    localStorage.setItem('avatar', res);
     setAvatar(res);
   }, 3000);
 
@@ -51,7 +52,7 @@ export default function Navbar() {
         <h1 className="text-2xl font-bold">frenss</h1>
       </Link>
       {params === "/home" && <Searcher />}
-      {true == false ? (
+      {status === 'authenticated' ? (
         <ul className="flex justify-center items-center gap-5">
           <li className="relative flex items-center gap-4">
             {!avatar ? <FaUser /> : (

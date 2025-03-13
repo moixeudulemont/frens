@@ -1,12 +1,9 @@
 'use client';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { useState } from 'react';
 
 export default function Pagination({total, docs}) {
     //HOOKS
     const router = useRouter();
-    const [prevState, setPrevState] = useState(false);
-    const [nextState, setNextState] = useState(true);
     //PARAMS AND VARIABLES
     const page = useSearchParams();
     const current = page.get('page') || 1;

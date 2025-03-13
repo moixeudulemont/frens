@@ -97,5 +97,5 @@ export async function changeAvatar(data) {
     //UPDATE AVATAR FROM ALL PUBS
     await Pubs.updateMany({author: author}, {avatar: url});
     
-    return 'OK';
+    return url;
 }
