@@ -8,7 +8,7 @@ export const metadata = {
 export default function dashboard() {
   return (
     <main className="md:px-10 px-5 py-5 h-[calc(100dvh-64px-1.25rem)]">
-      {/* <div className="grid grid-cols-2 md:gap-4 h-full">
+      <div className="grid grid-cols-2 md:gap-4 h-full">
         <Link href="/publicate/text" className="addPub w-full bg-violet-600 rounded flex justify-center items-center cursor-pointer hover:bg-violet-700">
           <FaPenToSquare size={70} color={"white"} />
         </Link>
@@ -21,8 +21,7 @@ export default function dashboard() {
         <Link href="/publicate/audio" className="addPub w-full bg-lime-400 rounded flex justify-center items-center cursor-pointer hover:bg-lime-700">
           <FaHeadphones size={70} color={"white"} />
         </Link>
-      </div> */}
-      <h1>Temporalmente bloqueado</h1>
+      </div>
     </main>
   );
 }
