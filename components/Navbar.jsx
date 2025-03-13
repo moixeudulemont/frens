@@ -116,10 +116,9 @@ export default function Navbar() {
           </li>
         </ul>
       ) : (
-        <></>
-        // <button onClick={() => signIn("google")} className="font-bold">
-        //   Log In
-        // </button>
+        <button onClick={() => signIn("google")} className="font-bold">
+          Log In
+        </button>
       )}
     </nav>
   );

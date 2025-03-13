@@ -55,7 +55,6 @@ function get_video_id(input) {
 }
 
 export const POST = async (req) => {
-  return NextResponse.status(401);
   //GET SESSION
   const { user } = await getServerSession();
   if (!user) return NextResponse.status(401);
