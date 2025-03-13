@@ -51,7 +51,7 @@ export default function Navbar() {
         <h1 className="text-2xl font-bold">frenss</h1>
       </Link>
       {params === "/home" && <Searcher />}
-      {status === "authenticated" ? (
+      {true == false ? (
         <ul className="flex justify-center items-center gap-5">
           <li className="relative flex items-center gap-4">
             {!avatar ? <FaUser /> : (
