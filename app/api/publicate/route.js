@@ -62,7 +62,10 @@ export const POST = async (req) => {
   const type = searchParams.get("type");
   const data = await req.formData();
   await db();
-  const { image: imgDB } = await Users.findOne({email: user.email}, {image: 1, _id: 0});
+  const { image: imgDB, pubcountperday } = await Users.findOne({email: user.email}, {image: 1, _id: 0, pubcountperday: 1});
+  if(!pubcountperday || pubcountperday <= 0) return NextResponse.json({ msg: "MAXPUBSPERDAY" });
+  //SUBSTRACT 1 FROM PUBCOUNTPERDAY
+  await Users.findOneAndUpdate({email: user.email}, {$inc: {pubcountperday: -1}})
 
   //SWITCH TYPE
   switch (type) {
@@ -82,7 +85,7 @@ export const POST = async (req) => {
     case "image": {
       //IMG FILTER
       function filter(file) {
-        if (file.size > 15000000) {
+        if (file.size > 4490000) {
           return NextResponse.json({ err: "BIG" });
         }
         if (
@@ -145,7 +148,7 @@ export const POST = async (req) => {
     case "audio": {
       //FILTER AUDIO FILE
       function filter(file) {
-        if (file.size > 25000000) {
+        if (file.size > 4490000) {
           return NextResponse.json({ err: "BIG" });
         }
         if (

@@ -69,7 +69,7 @@ export default function Publicate() {
           alert("Seleccione un archivo de audio porfavor");
           return;
         }
-        if(audio.size > 25000000) {
+        if(audio.size > 4490000) {
           alert('El archivo es muy pesado');
           return;
         }
@@ -93,6 +93,11 @@ export default function Publicate() {
       body: form,
     });
     const response = await res.json();
+    if (response.msg === "MAXPUBSPERDAY") {
+      alert('Has alcanzado el máximo número de publicaciones por día');
+      location.href = "/home";
+      return;
+    }
     if (response.msg == "OK") location.href = "/home";
   }
 
