@@ -69,7 +69,7 @@ export default function Publicate() {
           alert("Seleccione un archivo de audio porfavor");
           return;
         }
-        if(audio.size > 4490000) {
+        if(audio.size > 25000000) {
           alert('El archivo es muy pesado');
           return;
         }
