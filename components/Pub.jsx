@@ -46,7 +46,7 @@ export default function Pub({ data, type }) {
   function filterMsg(msg) {
     if(/.*\.(jpg|gif|png|jpeg|tiff|heif|bmp|webp)$/i.test(msg)) {
       return (
-        <img src={msg} alt="comentario con imagen" className="max max-w-[450px] max-h-[720px] rounded-lg shadow-md"/>
+        <img src={msg} alt="comentario con imagen" className="max max-w-[350px] max-h-[500px] rounded-lg drop-shadow-md"/>
       )
     } else {
       return (

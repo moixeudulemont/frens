@@ -42,6 +42,16 @@ export default function Publicate() {
       alert("Escriba un titulo porfavor");
       return;
     }
+    if(title.length > 50) {
+      alert('El título es muy largo');
+      return;
+    }
+    if(description) {
+      if(description.length > 500) {
+        alert('La descripción es muy larga');
+        return;
+      }
+    }
     form.append("title", title.trim());
 
     //SWITCH TYPE
@@ -140,7 +150,7 @@ export default function Publicate() {
             required
             maxLength="50"
             minLength="1"
-            className="bg-[rgba(255,255,255,0.6)] rounded-lg shadow w-full px-4 py-2 text-slate-950 focus:outline-none"
+            className={`bg-[rgba(255,255,255,0.6)] rounded-lg shadow w-full px-4 py-2 text-slate-950 focus:outline-none ${title.length > 50 && 'ring-2 ring-red-600 bg-red-200'}`}
             type="text"
             placeholder="Título"
             value={title}
@@ -164,9 +174,9 @@ export default function Publicate() {
           {type !== "video" && (
             <textarea
               required={type == 'text' ? true : false}
-              maxLength="250"
+              maxLength="500"
               minLength="1"
-              className="bg-[rgba(255,255,255,0.6)] rounded-lg shadow w-full px-4 py-2 text-slate-950 resize-none focus:outline-none"
+              className={`bg-[rgba(255,255,255,0.6)] rounded-lg shadow w-full px-4 py-2 text-slate-950 focus:outline-none ${description.length > 500 && 'ring-2 ring-red-600 bg-red-200'}`}
               rows="2"
               placeholder="Descripción"
               value={description}

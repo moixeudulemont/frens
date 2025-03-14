@@ -6,11 +6,13 @@ import { changeAvatar, changePortrait } from '@/app/actions/serverActions';
 import { useSession } from "next-auth/react";
 import { useRouter } from 'next/navigation';
 import Loader from '@/components/Loader';
+import Toast from '@/components/Toast';
 import { useState } from 'react';
 
 export default function Portrait({portrait, avatar, author}) {
 
   const [loader, setLoader] = useState(false);
+  const [toastMsg, setToastMsg] = useState('');
   const { data: session, status } = useSession();
   const router = useRouter();
 
@@ -42,13 +44,17 @@ export default function Portrait({portrait, avatar, author}) {
         const x = await changeAvatar(form);
         if(x != 'BAD') {
           localStorage.setItem('avatar', x);
+          toaster('La foto de perfil se ha cambiado bien');
           router.refresh();
         }
         setLoader(false);
         break;
       case 'P':
         const z = await changePortrait(form);
-        if(z === 'OK') router.refresh();
+        if(z === 'OK') {
+          toaster('Tu portada se cambió bien, hay que esperar unos minutos para ver los cambios');
+          router.refresh();
+        }
         setLoader(false);
         break;
       default:
@@ -63,9 +69,16 @@ export default function Portrait({portrait, avatar, author}) {
     switcher(type, filters(e));
   }
 
+  //SET TOAST
+  function toaster(msg) {
+    setToastMsg(msg);
+    setTimeout(() => setToastMsg(''), 3000);
+  }
+
   return (
     <header className='w-full lg:h-[600px] h-[350px] relative lg:mb-10 mb-5 rounded-md'>
       {loader && <Loader />}
+      {toastMsg && <Toast msg={toastMsg}/>}
      {session?.user && (
       <>
        {(status === 'authenticated' && session.user.name === author) ? (
@@ -76,7 +89,7 @@ export default function Portrait({portrait, avatar, author}) {
             src={portrait ? portrait : '/portrait.jpg'}
             width={1280}
             height={720}
-            className='w-full h-[85%] rounded-sm cursor-pointer hover:blur-sm duration-100 z-10'
+            className='w-full h-[85%] rounded-sm cursor-pointer hover:hue-rotate-180 z-10'
             alt={`Portada de ${author}`}
           />
         </label>
@@ -86,7 +99,7 @@ export default function Portrait({portrait, avatar, author}) {
             src={avatar}
             width={520}
             height={520}
-            className='absolute rounded-full shadow-md lg:right-10 right-5 bottom-5 lg:w-40 lg:h-40 w-20 h-20 ring-white ring-offset-2 ring-2 cursor-pointer hover:blur-sm duration-100 z-10'
+            className='absolute rounded-full shadow-md animate-bounce lg:right-10 right-5 bottom-5 lg:w-40 lg:h-40 w-20 h-20 ring-white ring-offset-2 ring-2 cursor-pointer hover:hue-rotate-180 z-10'
             alt={`Foto de perfil de ${author}`}
           />
         </label>

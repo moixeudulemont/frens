@@ -61,6 +61,8 @@ export const POST = async (req) => {
   const { searchParams } = new URL(req.url);
   const type = searchParams.get("type");
   const data = await req.formData();
+  const title = data.get('title');
+  if(title.length > 50) return NextResponse.json({err: 'BAD LARGE TITLE'});
   await db();
   const { image: imgDB } = await Users.findOne({email: user.email}, {image: 1, _id: 0});
 
@@ -68,8 +70,8 @@ export const POST = async (req) => {
   switch (type) {
     //TEXT
     case "text": {
-      if (!data.get("title") || !data.get("description"))
-        NextResponse.json({ err: "EMPTY" });
+      if (!data.get("title") || !data.get("description") || data.get("description").length > 500)
+        NextResponse.json({ err: "EMPTY OR LARGE" });
       await Pubs.create({
         author: user.name,
         avatar: imgDB,
@@ -81,6 +83,9 @@ export const POST = async (req) => {
     //IMAGE
     case "image": {
       //IMG FILTER
+      if(data.get('description')) {
+        if(data.get('description').length > 500) return NextResponse.json({ err: "LARGE DESCRIPTION" });
+      }
       function filter(file) {
         if (file.size > 15000000) {
           return NextResponse.json({ err: "BIG" });
@@ -143,6 +148,9 @@ export const POST = async (req) => {
     }
     //AUDIO
     case "audio": {
+      if(data.get('description')) {
+        if(data.get('description').length > 500) return NextResponse.json({ err: "LARGE DESCRIPTION" });
+      }
       //FILTER AUDIO FILE
       function filter(file) {
         if (file.size > 25000000) {

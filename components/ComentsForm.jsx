@@ -3,6 +3,7 @@ import { FaPaperPlane, FaSpinner, FaImage } from "react-icons/fa6";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Toast from '@/components/Toast';
 
 export default function ComentsForm({pubId}) {
   //HOOKS
@@ -10,6 +11,12 @@ export default function ComentsForm({pubId}) {
   const router = useRouter();
   const [commentTxt, setCommentTxt] = useState("");
   const [loaderComment, setLoaderComment] = useState(false);
+  const [toastMsg, setToastMsg] = useState('');
+
+  function toaster(msg) {
+    setToastMsg(msg);
+    setTimeout(() => setToastMsg(''), 3000);
+  }
 
   async function upComment(e, type) {
     e.preventDefault();
@@ -20,6 +27,10 @@ export default function ComentsForm({pubId}) {
     switch(type) {
       case 'TEXT':
         if(!commentTxt) return;
+        if(commentTxt.length > 500) {
+          alert('El texto es muy largo');
+          return;
+        }
         form.append("comment", commentTxt.trim());
         break;
       case 'IMG':
@@ -45,26 +56,36 @@ export default function ComentsForm({pubId}) {
     if (!res.ok) throw "error";
     const response = await res.json();
     setLoaderComment(false);
-    if (response.msg == "OK") router.refresh();
+    if (response.msg == "OK") {
+      toaster('El comentario se publicó exitosamente');
+      router.refresh();
+      return;
+    } else {
+      toaster('El comentario no se pudo publicar');
+      return;
+    }
   }
 
   return (
-    <form onSubmit={e => upComment(e, 'TEXT')} className="w-full flex gap-4 items-center pt-2">
-      <div className="commentBX w-full flex justify-between relative items-center">
+    <>
+    {status == 'authenticated' && (
+      <form onSubmit={e => upComment(e, 'TEXT')} className="w-full flex gap-4 items-center pt-2">
+      {toastMsg && <Toast msg={toastMsg}/>}
+      <div className="commentBX w-full flex justify-between items-center gap-3">
         <input
           type="text"
           placeholder="Escribe un comentario"
-          maxLength="250"
+          maxLength="500"
           minLength="1"
           required
-          className="w-full py-2 px-4 rounded-lg focus:outline-none text-slate-950"
+          className={`w-full py-2 px-4 rounded-lg focus:outline-none text-slate-950 ${commentTxt.length > 500 && 'ring-2 ring-red-600 bg-red-200'}`}
           value={commentTxt}
           onChange={(e) => setCommentTxt(e.target.value)}
           disabled={status == 'unauthenticated' ? true : false}
         />
         <input type="file" id={pubId} hidden accept="image/*" onChange={e => upComment(e, 'IMG')}/>
-        <label htmlFor={pubId} className="absolute right-3">
-          <FaImage className="text-slate-700 cursor-pointer"/>
+        <label htmlFor={pubId} className="">
+          <FaImage className="text-white cursor-pointer size-5"/>
         </label>
       </div>
       {loaderComment ? (
@@ -79,5 +100,7 @@ export default function ComentsForm({pubId}) {
         </button>
       )}
     </form>
+    )}   
+    </>
   );
 }
