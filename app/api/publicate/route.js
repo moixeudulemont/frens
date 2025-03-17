@@ -22,7 +22,7 @@ async function webPushNotif(title, imgSrc, desc = '') {
       chrome_web_icon: 'https://res.cloudinary.com/andy-company/image/upload/v1714675218/favicon_btppz8.png',
       chrome_web_badge: 'https://res.cloudinary.com/andy-company/image/upload/v1714675434/Recurso_1_tredno.png',
       contents: { en: desc },
-      web_url: "https://frenss.pro/home",
+      web_url: "https://frenss.online/home",
       app_id: "736e3c17-35ed-4cf9-a2b7-bd58f727c849",
       name: "Frenss",
       included_segments: ["Total Subscriptions"],
