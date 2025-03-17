@@ -10,6 +10,22 @@ import { FaArrowLeft } from "react-icons/fa6";
 
 moment.locale("es");
 
+//HELPERS
+  //FILTER MSGS TYPE
+  function filterMsg(msg) {
+    if(/.*\.(jpg|gif|png|jpeg|tiff|heif|bmp|webp)$/i.test(msg)) {
+      return (
+        <img src={msg} alt="comentario con imagen" className="max max-w-[350px] max-h-[500px] rounded-lg drop-shadow-md"/>
+      )
+    } else {
+      return (
+        <p className="font-bold p-3 rounded-lg bg-[#fff3] break-word">
+          {msg}
+        </p>
+      )
+    }
+  }
+
 async function getPub(id) {
   await db();
   let pub = null;
@@ -141,12 +157,7 @@ export default async function pub({ searchParams }) {
                   </div>
                   {/* BODY */}
                   <div>
-                    <p
-                      style={{ wordBreak: "break-word !important" }}
-                      className="border-l-8 border-solid border-cyan-300 py-2 px-4 rounded-lg"
-                    >
-                      {elem.msg}
-                    </p>
+                    {filterMsg(elem.msg)}
                   </div>
                 </article>
               ))
