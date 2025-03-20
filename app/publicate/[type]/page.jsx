@@ -6,6 +6,8 @@ import { useParams } from "next/navigation";
 
 //PRINCIPAL COMPONENT
 export default function Publicate() {
+
+
   //HOOKS
   const { type } = useParams();
   const [imgSrc, setImgSrc] = useState(null);
@@ -103,6 +105,11 @@ export default function Publicate() {
       body: form,
     });
     const response = await res.json();
+    if(response.msg === "PUB LIMITS REACHED") {
+      alert('Has alcanzado el máximo de publicaciones al día, espera hasta mañana.');
+      location.href = "/home";
+      return;
+    }
     if (response.msg == "OK") location.href = "/home";
   }
 

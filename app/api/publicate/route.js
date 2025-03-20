@@ -58,13 +58,19 @@ export const POST = async (req) => {
   //GET SESSION
   const { user } = await getServerSession();
   if (!user) return NextResponse.status(401);
+  await db();
+  //GET USER DATA FROM DB
+  const { image: imgDB, pubcountperday } = await Users.findOne({email: user.email}, {image: 1, _id: 0, pubcountperday: 1});
+  //CHECK PUBS PER DAY LIMIT
+  if(pubcountperday <= 0) return NextResponse.json({msg: 'PUB LIMITS REACHED'});
+  //SUBSTRACT ONE PUBCOUNTPERDAY
+  await Users.findOneAndUpdate({email: user.email}, {$inc: {pubcountperday: -1}});
+  //INIT
   const { searchParams } = new URL(req.url);
   const type = searchParams.get("type");
   const data = await req.formData();
   const title = data.get('title');
   if(title.length > 50) return NextResponse.json({err: 'BAD LARGE TITLE'});
-  await db();
-  const { image: imgDB } = await Users.findOne({email: user.email}, {image: 1, _id: 0});
 
   //SWITCH TYPE
   switch (type) {
