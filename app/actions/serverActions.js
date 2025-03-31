@@ -5,6 +5,7 @@ import Pubs from '@/lib/models/pubs';
 import Users from '@/lib/models/users';
 import { v2 as cloudinary } from "cloudinary";
 import { getServerSession } from "next-auth";
+import blockeds from '@/lib/blocked';
 
 //CLOUDYNARI CREDENTIALS
 cloudinary.config({
@@ -46,6 +47,7 @@ export async function like(status, liker, id) {
 export async function changePortrait(data) {
     //SECURE AUTH
     const { user } = await getServerSession();
+    if(blockeds.includes(user.email)) return 'BLOCKED USER';
     if(user.email !== data.get('email')) return 'BAD';
     
     const file = data.get('file');
@@ -73,6 +75,7 @@ export async function changePortrait(data) {
 export async function changeAvatar(data) {
     //SECURE AUTH
     const { user } = await getServerSession();
+    if(blockeds.includes(user.email)) return 'BLOCKED USER';
     if(user.email !== data.get('email')) return 'BAD';
 
     const file = data.get('file');

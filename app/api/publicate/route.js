@@ -5,6 +5,7 @@ import Pubs from "@/lib/models/pubs";
 import { getServerSession } from "next-auth";
 import { Types } from "mongoose";
 import Users from "@/lib/models/users";
+import blockeds from '@/lib/blocked';
 
 //Web Push Notifications
 async function webPushNotif(title, imgSrc, desc = '') {
@@ -58,6 +59,7 @@ export const POST = async (req) => {
   //GET SESSION
   const { user } = await getServerSession();
   if (!user) return NextResponse.status(401);
+  if(blockeds.includes(user.email)) return NextResponse.json({msg: 'BLOCKED USER'});
   await db();
   //GET USER DATA FROM DB
   const { image: imgDB, pubcountperday } = await Users.findOne({email: user.email}, {image: 1, _id: 0, pubcountperday: 1});
@@ -211,6 +213,7 @@ export const DELETE = async (req) => {
   //GET SESSION
   const { user } = await getServerSession();
   if (!user) return NextResponse.status(401);
+  if(blockeds.includes(user.email)) return NextResponse.json({msg: 'BLOCKED USER'});
   //INIT
   const { searchParams } = new URL(req.url);
   const type = searchParams.get("type");

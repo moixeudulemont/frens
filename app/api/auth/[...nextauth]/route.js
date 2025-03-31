@@ -2,6 +2,7 @@ import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import { db } from '@/lib/db';
 import User from '@/lib/models/users';
+import blocked from '@/lib/blocked';
 
 const handler = NextAuth({
     providers: [
@@ -13,6 +14,7 @@ const handler = NextAuth({
     callbacks: {
         async signIn({profile}){
             if(!profile.email) return false;
+            if(blocked.includes(profile.email)) return false;
             await db();
             //IF EXISTS
             const exists = await User.findOne({email: profile.email});

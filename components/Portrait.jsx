@@ -11,6 +11,8 @@ import { useState } from 'react';
 
 export default function Portrait({portrait, avatar, author}) {
 
+  console.log(avatar)
+
   const [loader, setLoader] = useState(false);
   const [toastMsg, setToastMsg] = useState('');
   const { data: session, status } = useSession();

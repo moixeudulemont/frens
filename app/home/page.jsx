@@ -53,6 +53,7 @@ async function extrasPublications() {
 //GET USER
 function getUser(author) {
   const x = users.filter(x => x.name === author);
+  console.log(author)
   if(!x || x.length == 0) return;
   return x[0];
 }
@@ -101,6 +102,8 @@ export default async function Home({ searchParams }) {
   const authorPage = filtroAuthor();
   const { pubs, count } = await getData(page, search, authorPage);
   const x = renderPubs();
+
+  getUser(authorPage)
 
   return (
     <main className="px-2">

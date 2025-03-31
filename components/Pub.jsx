@@ -92,7 +92,7 @@ export default function Pub({ data, type }) {
           <div className="md:w-[50px] md:h-[50px] w-[35px] h-[35px]">
             <img
               src={data.avatar}
-              className="rounded-full cursor-pointer"
+              className="rounded-full cursor-pointer w-[50px] h-[50px]"
               alt="avatar user"
               onClick={() => router.push(`/home?author=${data.author}`)}
             />
