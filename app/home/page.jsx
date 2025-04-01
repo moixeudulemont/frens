@@ -7,7 +7,6 @@ import Extras from "@/components/Extras";
 import Filters from "@/components/Filters";
 import Portada from "@/components/Portada";
 import Portrait from "@/components/Portrait";
-import Radio from '@/components/Radio';
 
 export const metadata = {
   title: "frens - home",
@@ -116,7 +115,6 @@ export default async function Home({ searchParams }) {
           <Filters url={searchParams.author} users={JSON.stringify(users)}/>
         </div>
         <div className="flex flex-col gap-5 md:w-6/12 w-full" id="pubs">
-          <Radio />
           {search && (
             <h1 className="text-center text-xl lg:text-2xl font-bold">
               {count} resultados encontrados para{" "}
