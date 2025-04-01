@@ -89,10 +89,10 @@ export default function Pub({ data, type }) {
     >
       <div className="flex items-center justify-between py-2 pl-2 pr-4 ">
         <div className="flex gap-3 items-center">
-          <div className="md:w-[50px] md:h-[50px] w-[35px] h-[35px]">
+          <div className="md:w-[50px] md:h-[50px] w-[40px] h-[40px]">
             <img
               src={data.avatar}
-              className="rounded-full cursor-pointer w-[50px] h-[50px]"
+              className="rounded-full cursor-pointer md:w-[50px] md:h-[50px] w-[40px] h-[40px]"
               alt="avatar user"
               onClick={() => router.push(`/home?author=${data.author}`)}
             />
