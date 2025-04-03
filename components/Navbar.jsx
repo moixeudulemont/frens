@@ -13,6 +13,7 @@ import {
 } from "react-icons/fa6";
 import Searcher from "@/components/Searcher";
 import { motion } from "framer-motion";
+import Radio from '@/components/Radio';
 
 //VARIANTS FOR DROPDOWN
 const variants = {
@@ -45,6 +46,7 @@ export default function Navbar() {
   }, 3000);
 
   return (
+    <>
     <nav
       className="h-[70px] z-[100] flex items-center md:px-10 px-4 justify-between backdrop-blur-md shadow-md"
     >     
@@ -122,5 +124,7 @@ export default function Navbar() {
         </button>
       )}
     </nav>
+    <Radio />
+    </>
   );
 }
