@@ -16,7 +16,7 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import YtPlayer from "@/components/YtPlayer";
-import { motion } from "framer-motion";
+import { inView, motion } from "framer-motion";
 import ComentsForm from "@/components/ComentsForm";
 import { like } from "@/app/actions/serverActions";
 import Clipboard from "@/components/Clipboard";
@@ -83,7 +83,15 @@ export default function Pub({ data, type }) {
   }
 
   return (
-    <article
+    <motion.article
+      initial="hidden"
+      whileInView="visible"
+      viewport={{once: 'true'}}
+      transition={{ duration: 1, type: 'spring' }}
+      variants={{
+        visible: { opacity: 1, scale: 1 },
+        hidden: { opacity: 0, scale: 0 }
+      }}
       style={{background: 'linear-gradient(-45deg, rgba(255, 0, 255, 0.6), rgba(255, 255, 0, 0.6))'}}
       className={`flex justify-center flex-col w-full backdrop-blur-lg rounded-lg bg-[#0001] shadow-lg`}
     >
@@ -261,6 +269,6 @@ export default function Pub({ data, type }) {
           </div>
         </motion.div>
       )}
-    </article>
+    </motion.article>
   );
 }

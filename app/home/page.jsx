@@ -103,7 +103,7 @@ export default async function Home({ searchParams }) {
         {/* <div id="filters" className="md:w-3/12 w-12/12">
           <Filters url={searchParams.author} users={JSON.stringify(users)}/>
         </div> */}
-        <div className="lg:grid lg:grid-cols-3 flex flex-col gap-5 w-full md:w-auto" id="pubs">
+        <div className="lg:grid lg:grid-cols-3 flex flex-col-reverse gap-5 w-full md:w-auto" id="pubs">
           {search && (
             <h1 className="text-center text-xl lg:text-2xl font-bold">
               {count} resultados encontrados para{" "}

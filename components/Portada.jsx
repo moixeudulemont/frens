@@ -17,9 +17,9 @@ export default function Portada() {
     <section
       style={{
         transition: "0.3s",
-        background: 'linear-gradient(45deg, rgba(255, 0, 255, 0.6), rgba(255, 255, 0, 0.6))'
+        background: '#f007'
       }}
-      className="max-h-[85dvh] overflow-y-auto h-[85dvh] w-full sticky z-[60] top-[135px] rounded-tl-lg rounded-bl-lg backdrop-blur-md shadow-lg p-3 flex flex-col justify-center items-center gap-5"
+      className="max-h-[85dvh] overflow-y-auto lg:h-[85dvh] h-auto w-full sticky z-[60] top-[135px] rounded-tl-lg rounded-bl-lg backdrop-blur-md shadow-lg p-3 flex flex-col justify-center items-center gap-5"
     >
       <h1
         className={`font-bold text-5xl text-center rounded-md ${lobster.className} drop-shadow-md bg-gradient-to-r from-yellow-200 via-purple-300 to-pink-300 text-transparent bg-clip-text`}>Portada del día</h1>

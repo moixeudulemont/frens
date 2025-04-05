@@ -23,9 +23,9 @@ export default function Radio() {
   return (
     <motion.div
       initial={{backgroundColor: '#223'}}
-      animate={{backgroundColor: ['#8A2BE2', '#FF4500', '#FF1493', '#DC143C']}}
+      animate={{backgroundColor: ['#93E6', '#F506', '#FF06', '#D246', '#0FF6']}}
       transition={{ repeat: Infinity, duration: 10, repeatType: 'mirror'}}
-      className="w-full mx-auto py-2 px-5 flex items-center justify-between shadow-md"
+      className="w-full mx-auto py-2 px-5 flex items-center justify-between shadow-md backdrop-blur-lg"
     >
       <div className="btns">
         {isPlaying ? (
@@ -35,12 +35,7 @@ export default function Radio() {
         )}
       </div>
       <div className="descrip flex items-center w-full overflow-hidden">
-        <motion.h3
-          initial={{translateX: '-100vw'}}
-          animate={{translateX: '100vw'}}
-          transition={{repeat: Infinity, duration: 30 ,repeatType: 'mirror'}}
-          className="text-lg font-bold drop-shadow-md animate-ping">Radio Dj NaKo
-        </motion.h3>
+        <h3 className="w-full font-bold text-center text-xl tracking-widest animate-ping text-slate-200">Radio Dj NaKo</h3>
       </div>
       <audio src="https://stream.zeno.fm/gkvdqocej4rtv" ref={audioRef}></audio>
     </motion.div>
