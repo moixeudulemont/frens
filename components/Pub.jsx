@@ -50,7 +50,7 @@ export default function Pub({ data, type }) {
       )
     } else {
       return (
-        <p className="font-bold p-3 rounded-lg bg-[#fff3] break-word">
+        <p className="font-bold p-3 rounded-lg bg-[#fff4] break-word">
           {msg}
         </p>
       )
