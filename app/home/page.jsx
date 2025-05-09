@@ -7,6 +7,7 @@ import Extras from "@/components/Extras";
 import Filters from "@/components/Filters";
 import Portada from "@/components/Portada";
 import Portrait from "@/components/Portrait";
+import Chat from "@/components/Chat";
 
 export const metadata = {
   title: "frens - home",
@@ -35,14 +36,14 @@ async function getData(page, search, author) {
       .sort({ date: -1 })
       .skip(skip)
       .limit(docsPerPage);
-    const count = await Pubs.find({author: author}).count();
+    const count = await Pubs.find({author: author}).countDocuments();
     return { pubs, count };
   }
   const pubs = await Pubs.find({})
     .sort({ date: -1 })
     .skip(skip)
     .limit(docsPerPage);
-  const count = await Pubs.find({}).count();
+  const count = await Pubs.find({}).countDocuments();
   return { pubs, count };
 }
 //GET EXTRAS
@@ -115,6 +116,9 @@ export default async function Home({ searchParams }) {
           <Filters url={searchParams.author} users={JSON.stringify(users)}/>
         </div>
         <div className="flex flex-col gap-5 md:w-6/12 w-full" id="pubs">
+          <div className="w-full">
+            <Portada />
+          </div>
           {search && (
             <h1 className="text-center text-xl lg:text-2xl font-bold">
               {count} resultados encontrados para{" "}
@@ -125,8 +129,8 @@ export default async function Home({ searchParams }) {
           )}
           {pubs.map((elem, key) => x(elem, key))}
         </div>
-        <div className="hidden md:w-3/12 md:flex">
-          <Portada />
+        <div className="w-3/12 hidden md:block">
+          <Chat />
         </div>
       </section>
       <Pagination total={count} docs={docsPerPage} />
