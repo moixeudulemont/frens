@@ -11,6 +11,7 @@ let socket = null;
 
 export default function Chat() {
   const { data: session, status } = useSession();
+  const chatBX = useRef(null);
   useEffect(() => {
     if(status != "authenticated" && !session) return;
     console.log(status);
@@ -22,14 +23,12 @@ export default function Chat() {
     socket.addEventListener("open", onOpen);
     socket.addEventListener("close", onClosed);
     socket.addEventListener("message", onMessage);
-    
   }, [status]);
   const [loader, setLoader] = useState(false);
   const [closed, setClosed] = useState(true);
   const [usersList, setUsersList] = useState([]);
   const [msg, setMsg] = useState("");
   const [msgsList, setMsgsList] = useState([]);
-  const chatBX = useRef(null);
   
   //FUNCIONES INTERNAS
   function sendMsg(e) {
@@ -50,6 +49,9 @@ export default function Chat() {
   // }
   
   function onOpen() {
+    setTimeout(() => {
+      chatBX.current.scrollTop = chatBX.current.scrollHeight;
+    }, 300);
     setLoader(false);
     setClosed(false);
     console.log("WS OPEN")

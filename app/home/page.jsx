@@ -28,7 +28,7 @@ async function getData(page, search, author) {
       .limit(docsPerPage);
     const count = await Pubs.find({
       title: { $regex: search, $options: "i" },
-    }).count();
+    }).countDocuments();
     return { pubs, count };
   }
   if(author !== "all" && !search) {
